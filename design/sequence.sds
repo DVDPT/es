@@ -1,0 +1,1768 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SDBSystem Type="SDBSystem">
+  <Version>15</Version>
+  <ElementId>526ab5e1-8745-4060-9bd0-f30d4c388a72</ElementId>
+  <Name>System</Name>
+  <HasSeparateFile>true</HasSeparateFile>
+  <Children>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>cc52b214-f146-480b-8304-8455883a60c0</ElementId>
+      <Name>EmitirDespacho</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Membro Comissão de Financiamento</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>f6372ba7-6149-4a23-b3ab-4e312951905e</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>6ac87069-e45c-40f4-b7dc-5a25f9dfc53f</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>2bd9fc39-b121-4f09-876d-bdff11d1992a</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>6e6d9825-b8f3-40b1-900d-862eda015c3d</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduzir ID de projecto</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Membro Comissão de Financiamento</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>b89b51fa-05a7-4685-842e-c09bec48994d</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Pesquisa"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Membro Comissão de Financiamento</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>9410ac34-43d3-4de7-b803-f26fd0d4c84e</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Commands.GetProjectById(ProjectID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>97ce34bf-069d-48ad-ab54-40ca19c46aa0</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>QueryProjectById(ProjectID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>43a4487b-a25d-4cad-b5c0-8ca5c4d0bb30</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7c4156f0-ae2c-46e2-8204-bedebd7cae8b</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>a62df4e3-41b2-446f-b89d-decd742a0d95</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>ProjectView(Project)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Membro Comissão de Financiamento</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>277195bc-fabf-4710-b63d-f61d1b27b052</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduzir despacho</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Membro Comissão de Financiamento</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>ba760d50-284a-42a7-bdab-0b42c677c599</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Inserir despacho"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Membro Comissão de Financiamento</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>303d7d1d-fbe7-4203-950b-209aa7292876</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Commands.AddDispatchTo(ProjectID, Dispatch)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>12b601d8-d437-4bff-8cf0-4099dcbe95ba</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>AddDispatchTo(ProjectID, Dispatch)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>5e16c222-cd76-4ac4-b21b-d4abb22cc4bc</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>cc52b214-f146-480b-8304-8455883a60c0</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231566579584511</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>ea4e47ff-32a8-41a6-9840-9257aa9dd039</ElementId>
+      <Name>Abertura de Projecto</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Técnico</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>04db0640-ef77-4f79-b505-c1bef9a1b57b</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>6b119364-547a-408f-ad7c-f68aadd02dad</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>61d94ec9-27b3-4095-acad-615048a09e8d</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>e96a5046-228a-4ed5-abb1-ac940b990f4a</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Insere dados de projecto</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>0d0c66d0-8782-41b4-b5e1-c9e8faf01559</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Criar projecto"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>40df8bde-5938-4adc-9e06-81091ebc9588</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.CreateProject(Data)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>c8d146ee-fdde-4a53-a94b-8d8c38883634</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>CreateProject(Data)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>2de0dfbc-42dd-4137-bc1f-b4b2de427d2c</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Generate Project ID</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>84e4f060-0f39-40f8-be43-6752118b2885</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Create Project</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>5f036b0f-e87f-444e-b08a-bcc882823c70</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.State = Open</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>bb8400f5-459c-402a-b029-76b443bbe32a</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>b4908c72-ef9f-43c8-a4d0-065ba054de82</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>cde64adc-d7e5-4aee-82f7-8d432a8f8cd8</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>ProjectView(Project)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Técnico</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>8e2d672d-9d8e-4853-8c64-fdebc629f653</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceFlowNote">
+              <Text />
+              <Documentation />
+              <ShowDocumentation>true</ShowDocumentation>
+              <ElementId>9eb262c2-120e-463e-9ffe-aae43b1db1ee</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockElement">
+              <Text>Caso a candidatura se enquadre</Text>
+              <UseLifelineGutter>true</UseLifelineGutter>
+              <ConnectToLifeline>true</ConnectToLifeline>
+              <ExtraBracePadding Type="DiagramMeasurement">
+                <Value>0</Value>
+                <Units>Inches</Units>
+              </ExtraBracePadding>
+              <BraceOnLeft>true</BraceOnLeft>
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>ef58b706-929f-4e74-acde-d4831c64ccc6</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Enviar para despacho"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>5f8a3518-b309-4103-8049-a34dc5f7cf59</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.SendToDispatchQueue(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>d08f93aa-6659-4776-acba-236369579171</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>AddToDispatchQueue(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>9f172eed-6718-4c32-8879-5e861b9cf135</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.State = WaitingForDispatch</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>46022093-7b0d-40fd-b773-631f6ae83e9d</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockEnd">
+              <Name />
+              <Text />
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>true</ShowDocumentation>
+              <ElementId>d30840d6-9059-41c2-9ee3-eb926b54c074</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockElement">
+              <Text>Caso não se enquadre</Text>
+              <UseLifelineGutter>true</UseLifelineGutter>
+              <ConnectToLifeline>true</ConnectToLifeline>
+              <ExtraBracePadding Type="DiagramMeasurement">
+                <Value>0</Value>
+                <Units>Inches</Units>
+              </ExtraBracePadding>
+              <BraceOnLeft>true</BraceOnLeft>
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>3a7214c8-210c-4e86-af07-6207c5363f51</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Arquiva"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Técnico</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>af2c9793-2394-45bb-99a9-de57b017389c</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.Archive(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>07b8c935-2b33-4d09-a09b-ce2f12d0a982</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>ArchiveProject(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>fdba604a-6632-4ecf-84e8-c56b821d8d65</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.State = Archived</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>c5e6d628-706d-461a-8c5b-07ff6240da16</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>ea4e47ff-32a8-41a6-9840-9257aa9dd039</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231628050633376</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>92139f55-e6b5-45b6-9e59-d0d0c2950d1b</ElementId>
+      <Name>EmissãoDeParecerTecnico</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Gestor</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>765f6bb8-fb12-4f1d-8f88-c9f91736d061</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>f7b15579-dbaa-4709-afd4-a0b279f8885b</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>02ea31b4-cb3e-4442-a247-30cb97fe76f5</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>bb8dd6ec-e55d-4d8c-b7f0-e1674d923170</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduz parecer (texto)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>3a7261c3-e644-4ade-9264-6a7549fbf080</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduz decisão que aconselha a tomar</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>524a43cb-193d-48a1-bcc2-de3ad20e2dea</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Salvar parecer"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>43e11001-0d13-42f7-a1f5-b95bb8a0b44d</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.SaveTechinalOpinion(Project.ID, Opinion)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>95152732-39bb-4540-9035-c79055f176e4</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>AddTechnicalOpinion(Project.ID, Opinion)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>0d94ee2b-45df-4589-b1d5-82d173458c35</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockElement">
+              <Text>Se o parecer for favoravel</Text>
+              <UseLifelineGutter>true</UseLifelineGutter>
+              <ConnectToLifeline>true</ConnectToLifeline>
+              <ExtraBracePadding Type="DiagramMeasurement">
+                <Value>0</Value>
+                <Units>Inches</Units>
+              </ExtraBracePadding>
+              <BraceOnLeft>true</BraceOnLeft>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>3bcbe1b2-aa82-4d3b-9ff2-bbebc806e825</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Submeter para despacho"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>5952f3a7-0b56-48dc-a757-044d61152aef</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>SendToDispatchQueue(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>b4535cd0-73e8-43ee-8979-6953ec5e149a</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>AddToDispatchQueue(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>e93dc879-54a6-420d-b01d-d92082013283</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.State = WaitingForDispatch</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7e8de562-2d99-4191-b0f5-55a3767b61a6</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockEnd">
+              <Name />
+              <Text />
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>true</ShowDocumentation>
+              <ElementId>28d517cc-1e3e-45de-a1b3-28844830d794</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockElement">
+              <Text>Senão</Text>
+              <UseLifelineGutter>true</UseLifelineGutter>
+              <ConnectToLifeline>true</ConnectToLifeline>
+              <ExtraBracePadding Type="DiagramMeasurement">
+                <Value>0</Value>
+                <Units>Inches</Units>
+              </ExtraBracePadding>
+              <BraceOnLeft>true</BraceOnLeft>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>617aad97-acad-46d7-ad7c-0e0842bc796c</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Arquiva"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>40388fb7-7af4-4a4e-bbaa-21ef9b46e3f9</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>...</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7851a519-2949-4f2c-82f6-ceda6e4c28bf</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>92139f55-e6b5-45b6-9e59-d0d0c2950d1b</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231628356891328</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>300c936c-7f09-4bc8-976e-b9c2976d5cdf</ElementId>
+      <Name>Suspensao</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Utilizador</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>9c74e9a2-003c-4c6e-ab53-3b6af480d3d5</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>d8f9043f-ba2f-4701-9a3b-ce8eff136f5d</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>bb82ec3b-741d-48c5-8e45-25a882049321</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>f305574d-5bd6-49af-b716-50d230c8905e</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Suspender processo"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>d6efd7b7-2abe-4701-a0d8-7b565109c59f</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.Suspend(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>5704a6e3-0f4d-401b-94de-ca62ec71a889</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>SuspendProject(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>6120b797-f079-4ea5-8bda-5402d6e07b20</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.IsSupended = True</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>4d87526e-cfe3-4041-aa3d-9c76be35cee6</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>300c936c-7f09-4bc8-976e-b9c2976d5cdf</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231629412824103</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>b70e07ba-4e00-4662-ad48-b9d1ed49206a</ElementId>
+      <Name>ReactivacaoDoProjecto</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Utilizador</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>11faf428-bace-4e88-9bec-d822f29612ae</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>736f656f-a7c1-4adf-85a0-d797c1531ffd</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>d81523a9-ace6-4e41-8d5c-88009b45d02f</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>3d9128bd-9885-4390-8a5a-726f084660bf</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Reactivar"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7ffa137d-4f05-4247-a4f8-0592e1d52bdd</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.ReactivateProject(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>ae6440be-7c33-4cec-b82e-28b7690fb371</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockElement">
+              <Text>Se está suspenso</Text>
+              <UseLifelineGutter>true</UseLifelineGutter>
+              <ConnectToLifeline>true</ConnectToLifeline>
+              <ExtraBracePadding Type="DiagramMeasurement">
+                <Value>0</Value>
+                <Units>Inches</Units>
+              </ExtraBracePadding>
+              <BraceOnLeft>true</BraceOnLeft>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>a0a23cd3-d054-4762-9c92-4907e915efe1</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>ContinueProject(Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>03c5c47f-8a5d-4347-a88f-b69ec1166d16</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.IsSuspended = False</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>c8404b52-d900-46bd-b1ff-1ae40fbe8051</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockEnd">
+              <Name />
+              <Text />
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>true</ShowDocumentation>
+              <ElementId>bf9012ab-b3e4-43bb-b61d-15ea91a017c3</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceBlockElement">
+              <Text>Senão</Text>
+              <UseLifelineGutter>true</UseLifelineGutter>
+              <ConnectToLifeline>true</ConnectToLifeline>
+              <ExtraBracePadding Type="DiagramMeasurement">
+                <Value>0</Value>
+                <Units>Inches</Units>
+              </ExtraBracePadding>
+              <BraceOnLeft>true</BraceOnLeft>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>df341273-07f7-487f-af6b-2bc317eeac19</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>UnarchiveProject (Project.ID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>00a2545c-69e2-44d0-822b-799242593988</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.State = Open</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>d73e60d6-7d12-4ef1-9dca-808372992f59</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>b70e07ba-4e00-4662-ad48-b9d1ed49206a</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231634788670854</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>c6ce609f-e5d8-47bb-a47b-650f94e53902</ElementId>
+      <Name>RealizacaoDePagamento</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Gestor</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>926ea62b-35dd-46c4-ae33-030c361edca4</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>b59cf232-9bd0-4792-a663-2b5512d241ff</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>7456f48a-be25-42e2-99f9-0c7c9ba75b91</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>1a3b0eba-02cc-44af-9911-6e693806e090</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Inserir quantia</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>ece5e63f-f508-49e7-afe0-da8756a1282c</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Submeter pagamento"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Gestor</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>66dc82bf-947d-4237-af21-8ad5e66cbb2f</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.Pay(Project.ID, Amount)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>dd9492c6-11f0-49cb-bb68-ae550389f722</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Waiting for money transfer completion</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>894d2d2e-213c-495d-90a6-b38df94d77c8</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>AddPaymentsTo(Project.ID, Amount)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>800c0d3f-f26b-4d84-bbb3-03c6f2b1eb65</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceState">
+              <Name>Project.Payed += Amount</Name>
+              <ShareGuideline>true</ShareGuideline>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>aab8b98d-9d31-4f52-8028-4be712374db9</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>c6ce609f-e5d8-47bb-a47b-650f94e53902</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231636583581359</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>96129515-b5ed-4ae9-8193-317bfcada9d1</ElementId>
+      <Name>AlteracaoDadosProjecto</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Utilizador</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>4757a68d-06de-431f-b332-2c6902e889f7</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>f747bf30-edd0-40e1-beed-434fce1cb31e</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>25e2178f-ad20-4c52-9687-f02740899e97</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>045b876f-ef9b-4371-8ca4-4727645fac2d</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduz novos dados de projecto</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>58b3bf97-e0eb-4333-8e09-798fa1beeca8</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Salvar"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>43fb11fc-68df-4b64-8bc1-997dde9339ba</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Commands.UpdateProject(Project.ID, Data)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>20843e42-6fe5-4fea-a133-87117f373000</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>UpdateProject(Project.ID, Data)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7154a9e4-f242-46b1-985b-60ac3d71e168</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>96129515-b5ed-4ae9-8193-317bfcada9d1</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231639184757084</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>5810f452-5d97-4530-908d-2fd42e438b90</ElementId>
+      <Name>RelatorioInfoProjecto</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Utilizador</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>41c80af0-7c71-4926-83f7-2491a2235082</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>84309283-904a-4949-90a6-cb775f6e059f</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>2dc5fa4f-9adf-4bba-b9b8-5a9aa31540c1</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>ed552ccd-9afb-4178-a7cd-ba8a89e77e03</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduz ID de projecto</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7bb7c9b2-7de4-4754-8fd7-38775a9fa152</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Pesquisar"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>13077f41-0fea-4585-a88a-e23d080a7e9b</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Commands.GetProjectById(ProjectID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>9ab43669-31b3-43c5-8528-5d00e97f84c9</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>QueryProjectById(ProjectID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>18243a77-e77a-48eb-84c8-fef41a7441a5</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>85abbdef-5670-456e-bfb1-45df3681a05a</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>532d3425-6f6d-41f1-bcef-406655483103</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>ProjectView(Project)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Utilizador</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>0937b172-386e-48f4-a224-d0c469347bc1</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>5810f452-5d97-4530-908d-2fd42e438b90</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231641518405758</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>9a5f7c48-06d4-4512-8416-f8503234a945</ElementId>
+      <Name>RelatorioPagamentosProjecto</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Utilizador</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>586c9513-0755-4973-bcd2-3e54eb95ad3a</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>a7eddbe5-1794-4679-8980-1dbd3a5524f4</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>a296f141-0b41-4d76-bd24-3244394fc042</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>fb2ee7c3-9115-41b7-889c-0ff931b1bbc1</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Introduz ID de projecto</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7c3633de-44ff-4270-91b2-d99f00ed2a71</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Pesquisar"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>5d1f782d-b89f-45f6-a771-0e91181d2902</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Commands.GetProjectById(ProjectID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>2c6887ba-6ee1-419c-bbaf-d9a43a22fcc3</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>QueryProjectById(ProjectID)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>3655387b-939b-41a5-8c61-ed42f9494841</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>Dados</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>685105ea-1ada-41ff-82dc-9d7497faad4e</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>Project</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>a42a25f7-35b5-4c13-b0cc-d5c484915be4</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceReturnMessage">
+              <Name>ProjectPaymentsView(Project)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>false</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Utilizador</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>9b9c69c7-05c5-4c15-bba4-cbae90f30492</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>9a5f7c48-06d4-4512-8416-f8503234a945</DiagramId>
+        <Author />
+        <Keywords />
+        <Version>1.0</Version>
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231642649362028</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+    <SystemElement Type="SequenceDiagramProxy">
+      <ElementId>91378378-9a62-439c-84fc-295e5f0182bf</ElementId>
+      <Name>ReforcoProjecto</Name>
+      <HasSeparateFile>false</HasSeparateFile>
+      <Children />
+      <Diagram Type="SequenceDiagram">
+        <Version>1.0</Version>
+        <ShowTitle>true</ShowTitle>
+        <ShowDescription>true</ShowDescription>
+        <ElementDocumentationDisplay>Default</ElementDocumentationDisplay>
+        <FlowNoteDisplayLevel>Default</FlowNoteDisplayLevel>
+        <FreeNoteDisplayLevel>Default</FreeNoteDisplayLevel>
+        <LifelineWidthMultiplier>1</LifelineWidthMultiplier>
+        <Header Type="SequenceHeader">
+          <HeaderElements>
+            <HeaderElement Type="SequenceHeaderActor">
+              <Name>Utilizador</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>false</DisplayClassifier>
+              <Documentation />
+              <ElementId>80ba0195-c3ac-4d9c-9448-1410c8e90fb0</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>UI</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>2ac9c563-5692-4e7d-bd6a-e7942415042d</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Controlo</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>8b9d32b3-614e-44ff-bc8c-a373dea9796e</ElementId>
+            </HeaderElement>
+            <HeaderElement Type="SequenceHeaderObject">
+              <Name>Dados</Name>
+              <DisplayName>true</DisplayName>
+              <DisplayClassifier>true</DisplayClassifier>
+              <Documentation />
+              <ElementId>c75de6db-8ad4-4fe7-aa2e-c71c5ed2859a</ElementId>
+            </HeaderElement>
+          </HeaderElements>
+        </Header>
+        <Body Type="SequenceBody">
+          <BodyElements>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Inserir quantia de reforço</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>7d161af2-3322-43d1-be57-903cd4bcfb97</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>"Pedir reforço"</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>UI</Destination>
+              <Source>Utilizador</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>f5ff518c-45d3-436a-a57c-4b20ca66607b</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>Command.AskForReinforcement(Project.ID, Amount)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Controlo</Destination>
+              <Source>UI</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>0ce94573-e83d-4272-acb3-61b6bc6b060d</ElementId>
+            </BodyElement>
+            <BodyElement Type="SequenceCallMessage">
+              <Name>AddReinforcementRequest(Project.ID, Amount)</Name>
+              <Attributes />
+              <ShareGuideline>false</ShareGuideline>
+              <IsReturnable>true</IsReturnable>
+              <EmbeddedReturn>false</EmbeddedReturn>
+              <ReturnText />
+              <Destination>Dados</Destination>
+              <Source>Controlo</Source>
+              <Documentation />
+              <ShowDocumentation>false</ShowDocumentation>
+              <ElementId>f989f9de-a1d5-469d-89b1-607d77c90b52</ElementId>
+            </BodyElement>
+          </BodyElements>
+        </Body>
+        <Version>15</Version>
+        <DiagramId>91378378-9a62-439c-84fc-295e5f0182bf</DiagramId>
+        <Author />
+        <Keywords />
+        <Version />
+        <ScalingFactor>
+          <Width>1</Width>
+          <Height>1</Height>
+        </ScalingFactor>
+        <DefaultFontName>Arial</DefaultFontName>
+        <DefaultFontSize>8</DefaultFontSize>
+        <OverrideFooterDefaults>false</OverrideFooterDefaults>
+        <FooterTextLeft />
+        <FooterTextCenter />
+        <FooterTextRight />
+        <ModificationTimeTicks>635231647223492157</ModificationTimeTicks>
+      </Diagram>
+    </SystemElement>
+  </Children>
+  <FooterTextLeft />
+  <FooterTextCenter>Page [Page#] of [TotalPages]</FooterTextCenter>
+  <FooterTextRight />
+  <SDSVersion />
+  <Preferences>COxo+7mmPQNHl8TTma1lw1cKAAAAABoAAQAmEeMNls+pSpM8jm8NZm5qAQAAAwADS2V5Dg5TdWJQcmVmZXJlbmNlczoGVmFsdWVzOgEAABoDADoEAgABAgACAAIADgUDAAZFeHBvcnQaAQEABAAADgIDAAA6BAUAAQIAAQACAA4FBgALSW1hZ2VFeHBvcnQaAQEABwAADgIGAAA6BAgAAQIAAAACAAA6BAkAAQIAAgACAA4FCgAORXhwb3J0TG9jYXRpb24aAAIAeL03Vh7bF0+udOKDvPiSzQEAAAMABE5hbWUOCFR5cGVDb2RlCgVWYWx1ZRoLAAAOAgoAAA4AAAAADgUMAC9EOitBRnctUm51bmVzK0FGdy1JU0VMK0FGdy1FUytBRnctZXMrQUZ3LWRlc2lnbg4FDQAORXhwb3J0RGlhZ3JhbXMaAQIADgAADgUPAA5FeHBvcnREaWFncmFtcwAVAAAAABoAAwDx33I5qDJcTZEJF2wAj3XhAAABEAABAAREYXRhOgA6BBEAAAoACP9HTuqoMqZBmECSV6qd0DkIFLJSzEbxC0iDBIRViDpgwAgVlRKW7bXpSoGTMXv8ranRCFWfE5K15rZFnlnQ0MKVDRsIugcOtwBOYkatSLnR7UkgagifYM7G2OW7R6R7ZQ+U5TkCCHiDN5FimpxDhPwpXl8Bgr8IUvQQWJddMEWQjS/ULkOLkAhIfF+a1AYSRYQW+FAyNKlFCGyTDDAJf8hLl265wpdtXN8AOgQSAAECAAAAAgAOBRMACE1haW5Gb3JtGgEBABQAAA4CEwAAOgQVAAECAAEAAgAOBRYABkxheW91dBoBAQAXAAAOAhYAADoEGAABAgAAAAIAADoEGQABAgACAAIADgUaAAdWZXJzaW9uGgECABsAAA4FHAAHVmVyc2lvbgAKAAAAAApABgAADgUdAAEwGgECAB4AAA4FHwABMAAVAAAAABoABAAKqnp3F8hxRYyudl7/DVa5AAABIAAIAARTaXplFwAAAwAARQMAAA5Gb3JtTGF5b3V0RGF0YRoAGgAFAIXaO98MxgtHgeTPdwIchQ0AAAABAAREYXRhGiEAABoBAQAiAAAaAwA6BCMAAQIAAAACAAA6BCQAAQIAAwACAA4FJQAgQ2xhc3NpZmllckV4cGxvcmVyRXhwYW5zaW9uU3RhdGUaAQIAJgAADgIlAAAVAAAAABoABgAHxP4d1+6MTZGOuals+Q55AAABJwABAAREYXRhOgA6BCgAAQIAAQACAA4FKQAkNTI2YWI1ZTEtODc0NS00MDYwLTliZDAtZjMwZDRjMzg4YTcyAAEOBSoAHURpYWdyYW1FeHBsb3JlckV4cGFuc2lvblN0YXRlGgECACsAAA4CKgAAFQAAAAAaAQYALAABAAREYXRhOgA6BC0AAQIACwACAA4FLgAkYjcwZTA3YmEtNGUwMC00NjYyLWFkNDgtYjlkMWVkNDkyMDZhAAAOBS8AJGNjNTJiMjE0LWYxNDYtNDgwYi04MzA0LTg0NTU4ODNhNjBjMAABDgUwACQ1ODEwZjQ1Mi01ZDk3LTQ1MzAtOTA4ZC0yZmQ0MmU0MzhiOTAAAA4FMQAkZWE0ZTQ3ZmYtMzJhOC00MWE2LTk4NDAtOTI1N2FhOWRkMDM5AAAOBTIAJDkxMzc4Mzc4LTlhNjItNDM5Yy04NGZjLTI5NWU1ZjAxODJiZgAADgUzACQ5NjEyOTUxNS1iNWVkLTRhZTktODE5My0zMTdiZmNhZGE5ZDEAAA4FNAAkYzZjZTYwOWYtZTVkOC00N2JiLWE0N2ItNjUwZjk0ZTUzOTAyAAAOBTUAJDUyNmFiNWUxLTg3NDUtNDA2MC05YmQwLWYzMGQ0YzM4OGE3MgABDgU2ACQ5MjEzOWY1NS1lNmI1LTQ1YjYtOWU1OS1kMGQwYzI5NTBkMWIAAA4FNwAkOWE1ZjdjNDgtMDZkNC00NTEyLTg0MTYtZjg1MDMyMzRhOTQ1AAAOBTgAJDMwMGM5MzZjLTdmMDktNGJjOC05NzZlLWI5YzI5NzZkNWNkZgAADgU5AA5Eb2NrTGF5b3V0RGF0YRoBAgA6AAAOAjkAAA4AAAAADgU7AOwtQUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFNQWdBQUFHeEpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVJHOWpheTUyTlM0eUxDQldaWEp6YVc5dVBUVXVNaTR5TURBMU1pNHhNRE01TENCRGRXeDBkWEpsUFc1bGRYUnlZV3dzSUZCMVlteHBZMHRsZVZSdmEyVnVQVGRrWkRWak16RTJNMll5WTJRd1kySUZBUUFBQUM1SmJtWnlZV2RwYzNScFkzTXVWMmx1TGxWc2RISmhWMmx1Ukc5amF5NVZiSFJ5WVVSdlkydE5ZVzVoWjJWeUJnQUFBQXhEYjI1MGNtOXNVR0Z1WlhNSlJHOWphMEZ5WldGekUxVnVjR2x1Ym1Wa1ZHRmlTVzVtYjB4bFpuUVNWVzV3YVc1dVpXUlVZV0pKYm1adlZHOXdGVlZ1Y0dsdWJtVmtWR0ZpU1c1bWIwSnZkSFJ2YlJSVmJuQnBibTVsWkZSaFlrbHVabTlTYVdkb2RBUUVCQVFFQkR4SmJtWnlZV2RwYzNScFkzTXVWMmx1TGxWc2RISmhWMmx1Ukc5amF5NUViMk5yWVdKc1pVTnZiblJ5YjJ4UVlXNWxjME52Ykd4bFkzUnBiMjRDQUFBQU1VbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1RWIyTnJMa1J2WTJ0QmNtVmhjME52Ykd4bFkzUnBiMjRDQUFBQU1VbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1RWIyTnJMbFZ1Y0dsdWJtVmtWR0ZpUVhKbFlVbHVabThDQUFBQU1VbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1RWIyTnJMbFZ1Y0dsdWJtVmtWR0ZpUVhKbFlVbHVabThDQUFBQU1VbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1RWIyTnJMbFZ1Y0dsdWJtVmtWR0ZpUVhKbFlVbHVabThDQUFBQU1VbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1RWIyTnJMbFZ1Y0dsdWJtVmtWR0ZpUVhKbFlVbHVabThDQUFBQUFnQUFBQWtEQUFBQUNRUUFBQUFKQlFBQUFBa0dBQUFBQ1FjQUFBQUpDQUFBQUFVREFBQUFQRWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNUViMk5yTGtSdlkydGhZbXhsUTI5dWRISnZiRkJoYm1WelEyOXNiR1ZqZEdsdmJnRUFBQUFGUTI5MWJuUUFDQUlBQUFBQ0FBQUFCUVFBQUFBeFNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmtSdlkyc3VSRzlqYTBGeVpXRnpRMjlzYkdWamRHbHZiZ0lBQUFBRlEyOTFiblFCTUFBRUNDcEpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVJHOWpheTVFYjJOclFYSmxZVkJoYm1VQ0FBQUFBZ0FBQUFFQUFBQUpDUUFBQUFVRkFBQUFNVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNUViMk5yTGxWdWNHbHVibVZrVkdGaVFYSmxZVWx1Wm04Q0FBQUFDWFJoWWtkeWIzVndjd3QwWVdKQmNtVmhVMmxrWlFRRU5FbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1RWIyTnJMbFZ1Y0dsdWJtVmtWR0ZpUjNKdmRYQkpibVp2VzEwQ0FBQUFLRWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNUViMk5yTGtSdlkydGxaRk5wWkdVQ0FBQUFBZ0FBQUFrS0FBQUFCZlgvLy84b1NXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmtSdlkyc3VSRzlqYTJWa1UybGtaUUVBQUFBSGRtRnNkV1ZmWHdBSUFnQUFBQUFBQUFBQkJnQUFBQVVBQUFBSkRBQUFBQUh6Ly8vLzlmLy8vd0VBQUFBQkJ3QUFBQVVBQUFBSkRnQUFBQUh4Ly8vLzlmLy8vd0lBQUFBQkNBQUFBQVVBQUFBSkVBQUFBQUh2Ly8vLzlmLy8vd01BQUFBTUVnQUFBRkZUZVhOMFpXMHVSSEpoZDJsdVp5d2dWbVZ5YzJsdmJqMHlMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQ1FBQUFDcEpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVJHOWpheTVFYjJOclFYSmxZVkJoYm1VSUFBQUFCRk5wZW1VQ1NXUU9SRzlqYTJWa1VHRnlaVzUwU1dRUVJteHZZWFJwYm1kUVlYSmxiblJKWkFWUVlXNWxjdzVEYUdsc1pGQmhibVZUZEhsc1pSQlRaV3hsWTNSbFpGUmhZa2x1WkdWNERrUnZZMnRsWkV4dlkyRjBhVzl1QkFNREF3UUFBQUFUVTNsemRHVnRMa1J5WVhkcGJtY3VVMmw2WlJJQUFBQUxVM2x6ZEdWdExrZDFhV1FMVTNsemRHVnRMa2QxYVdRTFUzbHpkR1Z0TGtkMWFXUTFTVzVtY21GbmFYTjBhV056TGxkcGJpNVZiSFJ5WVZkcGJrUnZZMnN1Ukc5amEyRmliR1ZRWVc1bGMwTnZiR3hsWTNScGIyNENBQUFBQ0FnSUFnQUFBQVh0Ly8vL0UxTjVjM1JsYlM1RWNtRjNhVzVuTGxOcGVtVUNBQUFBQlhkcFpIUm9CbWhsYVdkb2RBQUFDQWdTQUFBQXpnQUFBTkVDQUFBRTdQLy8vd3RUZVhOMFpXMHVSM1ZwWkFzQUFBQUNYMkVDWDJJQ1gyTUNYMlFDWDJVQ1gyWUNYMmNDWDJnQ1gya0NYMm9DWDJzQUFBQUFBQUFBQUFBQUFBZ0hCd0lDQWdJQ0FnSUNkNkoyeW9WSmdVYWtxZldrTHcxYTFnSHIvLy8vN1AvLy93QUFBQUFBQUFBQUFBQUFBQUFBQUFBQjZ2Ly8vKy16Ly8vOEFBQUFBQUFBQUFBQUFBQUFBQUFBQUNSY0FBQUFDQUFBQUFBQUFBQUVBQUFBSENnQUFBQUFCQUFBQUFBQUFBQVF5U1c1bWNtRm5hWE4wYVdOekxsZHBiaTVWYkhSeVlWZHBia1J2WTJzdVZXNXdhVzV1WldSVVlXSkhjbTkxY0VsdVptOENBQUFBQnd3QUFBQUFBUUFBQUFBQUFBQUVNa2x1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNUViMk5yTGxWdWNHbHVibVZrVkdGaVIzSnZkWEJKYm1adkFnQUFBQWNPQUFBQUFBRUFBQUFBQUFBQUJESkpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVJHOWpheTVWYm5CcGJtNWxaRlJoWWtkeWIzVndTVzVtYndJQUFBQUhFQUFBQUFBQkFBQUFBQUFBQUFReVNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmtSdlkyc3VWVzV3YVc1dVpXUlVZV0pIY205MWNFbHVabThDQUFBQUJSY0FBQUExU1c1bWNtRm5hWE4wYVdOekxsZHBiaTVWYkhSeVlWZHBia1J2WTJzdVJHOWphMkZpYkdWUVlXNWxjME52Ykd4bFkzUnBiMjREQUFBQUJVTnZkVzUwQVRBQk1RQUVCQWd4U1c1bWNtRm5hWE4wYVdOekxsZHBiaTVWYkhSeVlWZHBia1J2WTJzdVJHOWphMkZpYkdWRGIyNTBjbTlzVUdGdVpRSUFBQUF4U1c1bWNtRm5hWE4wYVdOekxsZHBiaTVWYkhSeVlWZHBia1J2WTJzdVJHOWphMkZpYkdWRGIyNTBjbTlzVUdGdVpRSUFBQUFDQUFBQUFnQUFBQWtZQUFBQUNSa0FBQUFGR0FBQUFERkpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVJHOWpheTVFYjJOcllXSnNaVU52Ym5SeWIyeFFZVzVsQ2dBQUFBaFRaWFIwYVc1bmN3UlVaWGgwQkZOcGVtVUNTV1FPUkc5amEyVmtVR0Z5Wlc1MFNXUVFSbXh2WVhScGJtZFFZWEpsYm5SSlpBTkxaWGtMUTI5dWRISnZiRTVoYldVVlQzSnBaMmx1WVd4RGIyNTBjbTlzUW05MWJtUnpFRU52Ym5SeWIyeFFZVzVsU1c1a1pYZ0VBUVFEQXdNQkFRUUFLa2x1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNUViMk5yTGxCaGJtVlRaWFIwYVc1bmN3SUFBQUFUVTNsemRHVnRMa1J5WVhkcGJtY3VVMmw2WlJJQUFBQUxVM2x6ZEdWdExrZDFhV1FMVTNsemRHVnRMa2QxYVdRTFUzbHpkR1Z0TGtkMWFXUVlVM2x6ZEdWdExrUnlZWGRwYm1jdVVtVmpkR0Z1WjJ4bEVnQUFBQWdDQUFBQUNSb0FBQUFHR3dBQUFCQkVhV0ZuY21GdElFVjRjR3h2Y21WeUFlVC8vLy90Ly8vL3pnQUFBSGNCQUFBQjQvLy8vKy16Ly8vOGJ4VistbU1OS3RSSTRCNDM1c3dKSm5BZUwvLy8vcy8vLy9kNkoyeW9WSmdVYWtxZldrTHcxYTFnSGgvLy8vN1AvLy93QUFBQUFBQUFBQUFBQUFBQUFBQUFBR0lBQUFBQk5FYVdGbmNtRnRSWGh3Ykc5eVpYSlFZVzVsQmlFQUFBQVFiVVJwWVdkeVlXMUZlSEJzYjNKbGNnWGUvLy8vR0ZONWMzUmxiUzVFY21GM2FXNW5MbEpsWTNSaGJtZHNaUVFBQUFBQmVBRjVCWGRwWkhSb0JtaGxhV2RvZEFBQUFBQUlDQWdJRWdBQUFFQUFBQURJQUFBQWVRQUFBR0VBQUFBQUFBQUFBUmtBQUFBWUFBQUFDU01BQUFBR0pBQUFBQk5EYkdGemMybG1hV1Z5SUVWNGNHeHZjbVZ5QWR2Ly8vL3QvLy8vemdBQUFIY0JBQUFCMnYvLy8rLXovLy85MjJkeWk4SU0yU3JLbnJud1M0cmdZQWRuLy8vL3MvLy8vZDZKMnlvVkpnVWFrcWZXa0x3MWExZ0hZLy8vLzdQLy8vd0FBQUFBQUFBQUFBQUFBQUFBQUFBQUdLUUFBQUJaRGJHRnpjMmxtYVdWeVJYaHdiRzl5WlhKUVlXNWxCaW9BQUFBVGJVTnNZWE56YVdacFpYSkZlSEJzYjNKbGNnSFYvLy8vM3YvLy83Z0JBQUNvQUFBQWVRQUFBR0VBQUFBQkFBQUFEQ3dBQUFCZlNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1Mk5TNHlMQ0JXWlhKemFXOXVQVFV1TWk0eU1EQTFNaTR4TURNNUxDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFRka1pEVmpNekUyTTJZeVkyUXdZMklGR2dBQUFDcEpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVJHOWpheTVRWVc1bFUyVjBkR2x1WjNNQkFBQUFEVlJoWWtGd2NHVmhjbUZ1WTJVRUlVbHVabkpoWjJsemRHbGpjeTVYYVc0dVFYQndaV0Z5WVc1alpVaHZiR1JsY2l3QUFBQUNBQUFBQ1MwQUFBQUJJd0FBQUJvQUFBQUpMZ0FBQUFVdEFBQUFJVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVRWEJ3WldGeVlXNWpaVWh2YkdSbGNnRUFBQUFLUVhCd1pXRnlZVzVqWlFRYlNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1QmNIQmxZWEpoYm1ObExBQUFBQ3dBQUFBSkx3QUFBQUV1QUFBQUxRQUFBQWt3QUFBQURERUFBQUJpU1c1bWNtRm5hWE4wYVdOekxsTm9ZWEpsWkM1Mk5TNHlMQ0JXWlhKemFXOXVQVFV1TWk0eU1EQTFNaTR4TURNNUxDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFRka1pEVmpNekUyTTJZeVkyUXdZMklGTHdBQUFCdEpibVp5WVdkcGMzUnBZM011VjJsdUxrRndjR1ZoY21GdVkyVUNBQUFBQlVsdFlXZGxBa2xrQkFBdlNXNW1jbUZuYVhOMGFXTnpMbE5vWVhKbFpDNVRaWEpwWVd4cGVtRjBhVzl1TGs5aWFtVmpkRmR5WVhCd1pYSXhBQUFBQ0N3QUFBQUZ6di8vL3k5SmJtWnlZV2RwYzNScFkzTXVVMmhoY21Wa0xsTmxjbWxoYkdsNllYUnBiMjR1VDJKcVpXTjBWM0poY0hCbGNnRUFBQUFMYjJKcVpXTjBWbUZzZFdVRUZWTjVjM1JsYlM1RWNtRjNhVzVuTGtKcGRHMWhjQklBQUFBeEFBQUFDVE1BQUFBQUFBQUFBVEFBQUFBdkFBQUFBY3ovLy8vTy8vLy9DVFVBQUFBQUFBQUFCVE1BQUFBVlUzbHpkR1Z0TGtSeVlYZHBibWN1UW1sMGJXRndBUUFBQUFSRVlYUmhCd0lTQUFBQUNUWUFBQUFCTlFBQUFETUFBQUFKTndBQUFBODJBQUFBQXdFQUFBS0pVRTVIRFFvYUNnQUFBQTFKU0VSU0FBQUFFQUFBQUJBSUJnQUFBQi96LzJFQUFBQUVaMEZOUVFBQXNZOEwvR0VGQUFBQUlHTklVazBBQUhvbUFBQ0FoQUFBKy1nQUFBSURvQUFCMU1BQUE2bUFBQURxWUFBQVhjSnk2VVR3QUFBQUpjRWhaY3dBQUVFd0FBQkJNQWJYTDR3UUFBQUI1U1VSQlZEaFB4WkJiRm9BZ0NFUlpla3RqWndZS0JqNkkvT2w2cGtERzhSUUFYT1ZjbGRVZ0t3SVJ5d2w4emdWUU9TbGlHVUNQTGh2QTlVWnhBTS9rcGpLdDVzbDlRdTNIMVR6Ky1KOXJhSXVhVmNnRVc5ZkI3RzBEYms1VFhBQmxROTRoN25hbGZmRDVBNFFPalJzS0FERDJBY0RkOTFPOEEzQVB1R3RYS0ZKR3BBQUFBQUVsRlRrU3VRbUNDRHpjQUFBQXFBUUFBQW9sUVRrY05DaG9LQUFBQURVbElSRklBQUFBU0FBQUFFQWdHQUFBQUd3WXZYQUFBQUFSblFVMUJBQUN4and2OFlRVUFBQUFnWTBoU1RRQUFlaVlBQUlDRUFBRDZBQUFBZ09nQUFIVXdBQURxWUFBQU9wZ0FBQmR3bkxwUlBBQUFBQWx3U0ZsekFBQVFUQUFBRUV3QnRjdmpCQUFBQUtCSlJFRlVPRSstdGtna094Q0FNQTNsNm5zYlBXcnNPUndPbGh6cVNPVUlZVWUybWhtM2ZjMkxXOERRZE9lY3Rnckt2cnVFOUdad29Rb25qVXNhenBRaGJqalhhbjJITjlGbHpFWlljYTh3VTFRWFhsTmd4Nnd3Ui9rUzIxYnlXa1BpaVhzS3pQcXdWaWU4YkxCU3dIVjVDWWc5WmlnaEt2bXJFSG5Jcm10SDM0TW94ZnhiNVJmMGNtQWNSVU1PVFVHTDREekdxdmVZWFNlRVhTU0ZJVXRvQistU3NYWVhESUxib0FBQUFBU1VWT1JLNUNZSUlMC1ZhbGlkQm91bmRzAAABCExvY2F0aW9uEwAAAwAAAAAAAApDdXN0b21EYXRhGgAaAwtXaW5kb3dTdGF0ZQoAAAAAAAZGb3JtSWQKAAAAAAAPQ2hpbGRMYXlvdXREYXRhGgAaAQUAPAAAGgEBAD0AABoDADoEPgABAgAAAAIAADoEPwABAgABAAIADgVAAA9UYWJiZWRNZGlMYXlvdXQaAQIAQQAADgJAAAAOAAAAAA4FQgDGJUFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBTUFnQUFBQ0pKYm1aeVlXZHBjM1JwWTNNdVYybHVMbFZzZEhKaFYybHVWR0ZpWW1Wa1RXUnBEQU1BQUFCeFNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmxSaFltSmxaRTFrYVM1Mk5TNHlMQ0JXWlhKemFXOXVQVFV1TWk0eU1EQTFNaTR4TURNNUxDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFRka1pEVmpNekUyTTJZeVkyUXdZMklGQVFBQUFEQkpibVp5WVdkcGMzUnBZM011VTJoaGNtVmtMbE5sY21saGJHbDZZWFJwYjI0dVQySnFaV04wVTNSeVpXRnRaWElHQUFBQUdrOWlhbVZqZEZOMGNtVmhiV1Z5UVhOelpXMWliSGxPWVcxbEMxUmhZbE5sZEhScGJtZHpDVlJoWWtkeWIzVndjeE5CWTNScGRtVlVZV0pIY205MWNFbHVaR1Y0Q1ZacFpYZFRkSGxzWlJCVVlXSkhjbTkxY0ZObGRIUnBibWR6QVFRRUFBQUVNVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNVVZV0ppWldSTlpHa3VUV1JwVkdGaVUyVjBkR2x1WjNNREFBQUFPVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNVVZV0ppWldSTlpHa3VUV1JwVkdGaVIzSnZkWEJ6UTI5c2JHVmpkR2x2YmdNQUFBQUlDRFpKYm1aeVlXZHBjM1JwWTNNdVYybHVMbFZzZEhKaFYybHVWR0ZpWW1Wa1RXUnBMazFrYVZSaFlrZHliM1Z3VTJWMGRHbHVaM01EQUFBQUFnQUFBQVlFQUFBQUlrbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1VVlXSmlaV1JOWkdrSkJRQUFBQWtHQUFBQUFBQUFBQUlBQUFBSkJ3QUFBQXdJQUFBQVgwbHVabkpoWjJsemRHbGpjeTVYYVc0dWRqVXVNaXdnVm1WeWMybHZiajAxTGpJdU1qQXdOVEl1TVRBek9Td2dRM1ZzZEhWeVpUMXVaWFYwY21Gc0xDQlFkV0pzYVdOTFpYbFViMnRsYmowM1pHUTFZek14TmpObU1tTmtNR05pQlFVQUFBQXhTVzVtY21GbmFYTjBhV056TGxkcGJpNVZiSFJ5WVZkcGJsUmhZbUpsWkUxa2FTNU5aR2xVWVdKVFpYUjBhVzVuY3dJQUFBQVRRV04wYVhabFZHRmlRWEJ3WldGeVlXNWpaUlZUWld4bFkzUmxaRlJoWWtGd2NHVmhjbUZ1WTJVRUJDRkpibVp5WVdkcGMzUnBZM011VjJsdUxrRndjR1ZoY21GdVkyVkliMnhrWlhJSUFBQUFJVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVRWEJ3WldGeVlXNWpaVWh2YkdSbGNnZ0FBQUFEQUFBQUNRa0FBQUFKQ2dBQUFBVUdBQUFBT1VsdVpuSmhaMmx6ZEdsamN5NVhhVzR1Vld4MGNtRlhhVzVVWVdKaVpXUk5aR2t1VFdScFZHRmlSM0p2ZFhCelEyOXNiR1ZqZEdsdmJnSUFBQUFGUTI5MWJuUUJNQUFFQ0M1SmJtWnlZV2RwYzNScFkzTXVWMmx1TGxWc2RISmhWMmx1VkdGaVltVmtUV1JwTGsxa2FWUmhZa2R5YjNWd0F3QUFBQU1BQUFBQkFBQUFDUXNBQUFBRkJ3QUFBRFpKYm1aeVlXZHBjM1JwWTNNdVYybHVMbFZzZEhKaFYybHVWR0ZpWW1Wa1RXUnBMazFrYVZSaFlrZHliM1Z3VTJWMGRHbHVaM01CQUFBQUNGUmhZbE4wZVd4bEFBZ0RBQUFBQ1FBQUFBVUpBQUFBSVVsdVpuSmhaMmx6ZEdsamN5NVhhVzR1UVhCd1pXRnlZVzVqWlVodmJHUmxjZ0VBQUFBS1FYQndaV0Z5WVc1alpRUWJTVzVtY21GbmFYTjBhV056TGxkcGJpNUJjSEJsWVhKaGJtTmxDQUFBQUFnQUFBQUpEQUFBQUFFS0FBQUFDUUFBQUFrTkFBQUFCUXNBQUFBdVNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmxSaFltSmxaRTFrYVM1TlpHbFVZV0pIY205MWNBUUFBQUFFVkdGaWN3WkZlSFJsYm5RVVJtbHljM1JFYVhOd2JHRjVWR0ZpU1c1a1pYZ1FVMlZzWldOMFpXUlVZV0pKYm1SbGVBUUFBQUEwU1c1bWNtRm5hWE4wYVdOekxsZHBiaTVWYkhSeVlWZHBibFJoWW1KbFpFMWthUzVOWkdsVVlXSnpRMjlzYkdWamRHbHZiZ01BQUFBSUNBZ0RBQUFBQ1E0QUFBRFBBZ0FBQ0FBQUFBa0FBQUFGREFBQUFCdEpibVp5WVdkcGMzUnBZM011VjJsdUxrRndjR1ZoY21GdVkyVUNBQUFBQ0VadmJuUkVZWFJoQWtsa0JBQVpTVzVtY21GbmFYTjBhV056TGxkcGJpNUdiMjUwUkdGMFlRZ0FBQUFJQ0FBQUFBa1BBQUFBQUFBQUFBRU5BQUFBREFBQUFBa1FBQUFBQUFBQUFBVU9BQUFBTkVsdVpuSmhaMmx6ZEdsamN5NVhhVzR1Vld4MGNtRlhhVzVVWVdKaVpXUk5aR2t1VFdScFZHRmljME52Ykd4bFkzUnBiMjRMQUFBQUJVTnZkVzUwQVRBQk1RRXlBVE1CTkFFMUFUWUJOd0U0QVRrQUJBUUVCQVFFQkFRRUJBZ3BTVzVtY21GbmFYTjBhV056TGxkcGJpNVZiSFJ5WVZkcGJsUmhZbUpsWkUxa2FTNU5aR2xVWVdJREFBQUFLVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVWV3gwY21GWGFXNVVZV0ppWldSTlpHa3VUV1JwVkdGaUF3QUFBQ2xKYm1aeVlXZHBjM1JwWTNNdVYybHVMbFZzZEhKaFYybHVWR0ZpWW1Wa1RXUnBMazFrYVZSaFlnTUFBQUFwU1c1bWNtRm5hWE4wYVdOekxsZHBiaTVWYkhSeVlWZHBibFJoWW1KbFpFMWthUzVOWkdsVVlXSURBQUFBS1VsdVpuSmhaMmx6ZEdsamN5NVhhVzR1Vld4MGNtRlhhVzVVWVdKaVpXUk5aR2t1VFdScFZHRmlBd0FBQUNsSmJtWnlZV2RwYzNScFkzTXVWMmx1TGxWc2RISmhWMmx1VkdGaVltVmtUV1JwTGsxa2FWUmhZZ01BQUFBcFNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmxSaFltSmxaRTFrYVM1TlpHbFVZV0lEQUFBQUtVbHVabkpoWjJsemRHbGpjeTVYYVc0dVZXeDBjbUZYYVc1VVlXSmlaV1JOWkdrdVRXUnBWR0ZpQXdBQUFDbEpibVp5WVdkcGMzUnBZM011VjJsdUxsVnNkSEpoVjJsdVZHRmlZbVZrVFdScExrMWthVlJoWWdNQUFBQXBTVzVtY21GbmFYTjBhV056TGxkcGJpNVZiSFJ5WVZkcGJsUmhZbUpsWkUxa2FTNU5aR2xVWVdJREFBQUFBd0FBQUFvQUFBQUpFUUFBQUFrU0FBQUFDUk1BQUFBSkZBQUFBQWtWQUFBQUNSWUFBQUFKRndBQUFBa1lBQUFBQ1JrQUFBQUpHZ0FBQUFVUEFBQUFHVWx1Wm5KaFoybHpkR2xqY3k1WGFXNHVSbTl1ZEVSaGRHRUJBQUFBQkVKdmJHUUFDQWdBQUFBQkFBQUFBUkFBQUFBUEFBQUFBUUFBQUF3YkFBQUFZa2x1Wm5KaFoybHpkR2xqY3k1VGFHRnlaV1F1ZGpVdU1pd2dWbVZ5YzJsdmJqMDFMakl1TWpBd05USXVNVEF6T1N3Z1EzVnNkSFZ5WlQxdVpYVjBjbUZzTENCUWRXSnNhV05MWlhsVWIydGxiajAzWkdRMVl6TXhOak5tTW1Oa01HTmlCUkVBQUFBcFNXNW1jbUZuYVhOMGFXTnpMbGRwYmk1VmJIUnlZVmRwYmxSaFltSmxaRTFrYVM1TlpHbFVZV0lCQUFBQURWQmxjbk5wYzNSbFpFbHVabThFTDBsdVpuSmhaMmx6ZEdsamN5NVRhR0Z5WldRdVUyVnlhV0ZzYVhwaGRHbHZiaTVQWW1wbFkzUlhjbUZ3Y0dWeUd3QUFBQU1BQUFBRjVQLy8veTlKYm1aeVlXZHBjM1JwWTNNdVUyaGhjbVZrTGxObGNtbGhiR2w2WVhScGIyNHVUMkpxWldOMFYzSmhjSEJsY2dFQUFBQUxiMkpxWldOMFZtRnNkV1VDR3dBQUFBa2RBQUFBQVJJQUFBQVJBQUFBQWVMLy8vL2svLy8vQ1I4QUFBQUJFd0FBQUJFQUFBQUI0UC8vLystVC8vLzhKSVFBQUFBRVVBQUFBRVFBQUFBSGUvLy8vNVAvLy93a2pBQUFBQVJVQUFBQVJBQUFBQWR6Ly8vL2svLy8vQ1NVQUFBQUJGZ0FBQUJFQUFBQUIydi8vLystVC8vLzhKSndBQUFBRVhBQUFBRVFBQUFBSFkvLy8vNVAvLy93a3BBQUFBQVJnQUFBQVJBQUFBQWRiLy8vL2svLy8vQ1NzQUFBQUJHUUFBQUJFQUFBQUIxUC8vLystVC8vLzhKTFFBQUFBRWFBQUFBRVFBQUFBSFMvLy8vNVAvLy93a3ZBQUFBRHgwQUFBQlBBQUFBQWhvQUFRRFJpVWdWbzErLWRRb2gyRmdlSDRCYk1BQUFBQXdBTFEyOXVkR0ZwYm1WeVNXUWFCRVJoZEdFYUNFbHpRV04wYVhabEFBRUFBQWdVc2xMTVJ2RUxTSU1FaEZXSU9tREFBQm9EQUFBUEh3QUFBRThBQUFBQ0dnQUJBTkdKU0JXalg1MUNpSFlXQjRmZ0Zzd0FBQUFEQUF0RGIyNTBZV2x1WlhKSlpCb0VSR0YwWVJvSVNYTkJZM1JwZG1VQUFRQUFDUDlIVHVxb01xWkJtRUNTVjZxZDBEa0FHZ01BQUE4aEFBQUFUd0FBQUFJYUFBRUEwWWxJRmFOZm5VS0lkaFlIaCstQVd6QUFBQUFNQUMwTnZiblJoYVc1bGNrbGtHZ1JFWVhSaEdnaEpjMEZqZEdsMlpRQUJBQUFJVlo4VGtyWG10a1dlV2REUXdwVU5Hd0FhQXdBQUR5TUFBQUJQQUFBQUFob0FBUURSaVVnVm8xKy1kUW9oMkZnZUg0QmJNQUFBQUF3QUxRMjl1ZEdGcGJtVnlTV1FhQkVSaGRHRWFDRWx6UVdOMGFYWmxBQUVBQUFoc2t3d3dDWC9JUzVkdXVjS1hiVnpmQUJvREFBQVBKUUFBQUU4QUFBQUNHZ0FCQU5HSlNCV2pYNTFDaUhZV0I0ZmdGc3dBQUFBREFBdERiMjUwWVdsdVpYSkpaQm9FUkdGMFlSb0lTWE5CWTNScGRtVUFBUUFBQ0xvSERyY0FUbUpHclVpNTBlMUpJR29BR2dNQUFBOG5BQUFBVHdBQUFBSWFBQUVBMFlsSUZhTmZuVUtJZGhZSGgrLUFXekFBQUFBTUFDME52Ym5SaGFXNWxja2xrR2dSRVlYUmhHZ2hKYzBGamRHbDJaUUFCQUFBSW4yRE94dGpsdTBla2UyVVBsT1U1QWdBYUF3QUFEeWtBQUFCUEFBQUFBaG9BQVFEUmlVZ1ZvMSstZFFvaDJGZ2VINEJiTUFBQUFBd0FMUTI5dWRHRnBibVZ5U1dRYUJFUmhkR0VhQ0VselFXTjBhWFpsQUFFQUFBZ1ZsUktXN2JYcFNvR1RNWHY4cmFuUkFCb0RBQUFQS3dBQUFFOEFBQUFDR2dBQkFOR0pTQldqWDUxQ2lIWVdCNGZnRnN3QUFBQURBQXREYjI1MFlXbHVaWEpKWkJvRVJHRjBZUm9JU1hOQlkzUnBkbVVBQVFBQUNGTDBFRmlYWFRCRmtJMHYxQzVEaTVBQUdnTUFBQTh0QUFBQVR3QUFBQUlhQUFFQTBZbElGYU5mblVLSWRoWUhoKy1BV3pBQUFBQU1BQzBOdmJuUmhhVzVsY2tsa0dnUkVZWFJoR2doSmMwRmpkR2wyWlFBQkFBQUlTSHhmbXRRR0VrV0VGdmhRTWpTcFJRQWFBd0FBRHk4QUFBQlBBQUFBQWhvQUFRRFJpVWdWbzErLWRRb2gyRmdlSDRCYk1BQUFBQXdBTFEyOXVkR0ZwYm1WeVNXUWFCRVJoZEdFYUNFbHpRV04wYVhabEFBRUFBQWg0Z3plUllwcWNRNFQ4S1Y1ZkFZSy9BQm9EQUFFTAA6BEMAAQIAAAACAAA6BEQAAQIAAAACAA==</Preferences>
+  <AppearanceStyleManager Type="AppearanceStyleManager">
+    <Styles />
+    <Themes />
+    <DefaultTheme Type="AppearanceStyle">
+      <StyleId>00000000-0000-0000-0000-000000000000</StyleId>
+      <Name />
+      <Appearances Type="AppearanceManager">
+        <Entries />
+      </Appearances>
+    </DefaultTheme>
+  </AppearanceStyleManager>
+</SDBSystem>
