@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SGPF.Data;
+using SGPF.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,45 +10,59 @@ namespace SGPF.DataController
 {
 	public class ProjectController : IProjectController
 	{
-        private readonly ISGPF
-	    public Task<Data.Project> Create(Data.Project project)
+        private readonly ISGPFDatabase _db;
+
+        public ProjectController(ISGPFDatabase db) 
         {
-	        throw new NotImplementedException();
+            this._db = db;
         }
 
-        public Task<Data.Project> GetById(int id)
+        public async Task Create(Data.Project project)
         {
-	        throw new NotImplementedException();
+            project.Id = _db.GenerateProjectId();
+            
+            await _db.Projects.Add(project);
+            await SendToDispatchQueue(project);
         }
 
-        public Task SendToDispatchQueue(Data.Project project)
+        public async Task<Data.Project> GetById(int id)
         {
-	        throw new NotImplementedException();
+            await _db.Projects.Get(id);
         }
 
-        public Task Archive(Data.Project project)
+        public async Task SendToDispatchQueue(Data.Project project)
         {
-	        throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task AddTechnicalOpinion(Data.Project project, ? ?)
+        public async Task Archive(Data.Project project)
         {
-	        throw new NotImplementedException();
+            SetState(project, ProjectState.Archived);
         }
 
-        public Task AddDispatch(Data.Project project, ? ?)
+        public Task AddTechnicalOpinion(Data.Project project, string comment, Data.TechnicalOpinion opinion)
         {
-	        throw new NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public Task AddDispatch(Data.Project project, Data.TechnicalOpinion opinion)
+        {
+            throw new NotImplementedException();
         }
 
         public Task Suspend(Data.Project project)
         {
-	        throw new NotImplementedException();
+            
         }
 
         public Task Resume(Data.Project project)
         {
-	        throw new NotImplementedException();
+            throw new NotImplementedException();
         }
-}
+
+        private void SetState(Project proj, Data.ProjectState state) 
+        {
+            
+        }
+    }
 }

@@ -57,6 +57,7 @@
     <Compile Include="ProjectPayment.cs" />
     <Compile Include="Promoter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

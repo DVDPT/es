@@ -7,12 +7,37 @@ using GalaSoft.MvvmLight;
 
 namespace SGPF.Data
 {
+    public enum PersonType
+    {
+        Regular,
+        FinantialTechnician,
+        FinantialCommitteeMember
+    }
 
-    public class Manager : Person { }
-    public class FinantialTechnician : Person { }
-    public class FinantialCommitteeMember : Person { }
+    public class FinantialTechnician : BasePerson
+    {
+        public override PersonType Type
+        {
+            get { return PersonType.FinantialTechnician; }
+        }
+    }
 
-    public class Person : ObservableObject
+    public class FinantialCommitteeMember : BasePerson
+    {
+        public override PersonType Type
+        {
+            get { return PersonType.FinantialCommitteeMember; }
+        }
+    }
+
+    public class Person : BasePerson
+    {
+        public override PersonType Type
+        {
+            get { return PersonType.Regular; }
+        }
+    }
+    public abstract class BasePerson : ObservableObject
     {
         /// <summary>
         /// The <see cref="Name" /> property's name.
@@ -168,5 +193,7 @@ namespace SGPF.Data
                 RaisePropertyChanged(DesignationPropertyName);
             }
         }
+
+        public abstract PersonType Type { get; }
     }
 }

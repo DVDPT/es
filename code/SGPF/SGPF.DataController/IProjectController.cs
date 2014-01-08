@@ -9,7 +9,7 @@ namespace SGPF.DataController
 {
     public interface IProjectController
     {
-        Task<Project> Create(Project project);
+        Task Create(Project project);
 
         Task<Project> GetById(int id);
 
@@ -17,9 +17,9 @@ namespace SGPF.DataController
 
         Task Archive(Project project);
 
-        Task AddTechnicalOpinion(Project project, String comment, SGPF.Data.Manager.ManagerOpinion opinion);
+        Task AddTechnicalOpinion(Project project, String comment, TechnicalOpinion opinion);
 
-        Task AddDispatch(Project project, );
+        Task AddDispatch(Project project, TechnicalOpinion opinion);
 
         Task Suspend(Project project);
 

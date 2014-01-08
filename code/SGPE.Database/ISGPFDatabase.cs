@@ -11,10 +11,9 @@ namespace SGPF.Database
     {
         IAsyncEntityMapper<int, Project> Projects { get; }
         IAsyncEntityMapper<string, Promoter> Promoters { get; }
-        IAsyncEntityMapper<string, Person> Representatives { get; }
-        IAsyncEntityMapper<string, FinantialTechnician> Technicians { get; }
-        IAsyncEntityMapper<string, FinantialCommitteeMember> FinantialCommitteeMembers { get; }
+        IAsyncEntityMapper<string, BasePerson> Persons { get; }
 
+        int GenerateProjectId();
 
     }
 }
