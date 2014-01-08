@@ -295,29 +295,29 @@ namespace SGPF.Data
         /// </summary>
         public const string AssignedTechnitianPropertyName = "AssignedTechnitian";
 
-        private FinantialTechnician _finantialTechnician = null;
+        private FinancialManager _financialManager = null;
 
         /// <summary>
         /// Sets and gets the AssignedTecnitian property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public FinantialTechnician AssignedTecnitian
+        public FinancialManager AssignedTecnitian
         {
             get
             {
-                return _finantialTechnician;
+                return _financialManager;
             }
 
             set
             {
 
-                if (_finantialTechnician == value)
+                if (_financialManager == value)
                 {
                     return;
                 }
 
                 RaisePropertyChanging(AssignedTechnitianPropertyName);
-                _finantialTechnician = value;
+                _financialManager = value;
                 RaisePropertyChanged(AssignedTechnitianPropertyName);
             }
         }

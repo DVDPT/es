@@ -10,15 +10,24 @@ namespace SGPF.Data
     public enum PersonType
     {
         Regular,
-        FinantialTechnician,
-        FinantialCommitteeMember
+        FinancialManager,
+        FinantialCommitteeMember,
+        Technician
     }
 
-    public class FinantialTechnician : BasePerson
+    public class Technician : BasePerson
     {
         public override PersonType Type
         {
-            get { return PersonType.FinantialTechnician; }
+            get { return PersonType.Technician; }
+        }
+    }
+
+    public class FinancialManager : BasePerson
+    {
+        public override PersonType Type
+        {
+            get { return PersonType.FinancialManager; }
         }
     }
 

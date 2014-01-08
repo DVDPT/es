@@ -70,6 +70,10 @@
       <Project>{205d6528-8801-486b-80f4-de0a5fc68080}</Project>
       <Name>SGPF.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SGPF.DataController\SGPF.DataController.csproj">
+      <Project>{FBDFEA74-31B3-48CD-A943-1F8B3F3AFB83}</Project>
+      <Name>SGPF.DataController</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
