@@ -64,7 +64,7 @@ namespace SGPF.DataController
             await SendToDispatchQueue(person, project);
         }
 
-        public Task AddDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion)
+        public async Task AddDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion)
         {
             
         }
