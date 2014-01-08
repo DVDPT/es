@@ -8,6 +8,13 @@ using GalaSoft.MvvmLight;
 
 namespace SGPF.Data
 {
+    public enum TechnicalOpinion 
+    {
+        Approve,
+        Reject,
+        ConvertToLoan
+    }
+
     public enum ProjectType
     {
         Undefined,
