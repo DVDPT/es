@@ -51,10 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockAuthenticationService.cs" />
+    <Compile Include="Exceptions\ErrorConstants.cs" />
+    <Compile Include="Exceptions\PersonNotFoundException.cs" />
+    <Compile Include="IAuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SGPE.Database\SGPF.Database.csproj">
+      <Project>{b071af99-ebe9-4c9f-b076-952bb48cf37f}</Project>
+      <Name>SGPF.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SGPF.Data\SGPF.Data.csproj">
+      <Project>{205d6528-8801-486b-80f4-de0a5fc68080}</Project>
+      <Name>SGPF.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
