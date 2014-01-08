@@ -11,7 +11,8 @@ namespace SGPF.DataController
 	public class ProjectController : IProjectController
 	{
         private static readonly string
-            _onStateChangedMessageTemplate = "new state: {0}";
+            _onStateChangedMessageTemplate = "new state: {0}",
+            _onSuspensionStateChangeMessageTemplate = "suspended: {1}";
         
         private readonly ISGPFDatabase _db;
 
@@ -55,7 +56,7 @@ namespace SGPF.DataController
 
         public async Task Suspend(Data.Project project)
         {
-            
+            SetProjectSuspensionState(project, true);
         }
 
         public async Task Resume(Data.Project project)
@@ -63,13 +64,19 @@ namespace SGPF.DataController
             throw new NotImplementedException();
         }
 
+        private void SetProjectSuspensionState(Project project, bool suspend) 
+        {
+            project.IsSuspended = suspend;
+            Log(project, _onSuspensionStateChangeMessageTemplate, suspend);
+        }
+
         private void SetState(Project proj, Data.ProjectState state) 
         {
             proj.State = state;
-            Log(_onStateChangedMessageTemplate, state.ToString());
+            Log(proj, _onStateChangedMessageTemplate, state.ToString());
         }
 
-        private void Log(String template, params Object parameters) 
+        private void Log(Project project, String template, Object parameters) 
         {
             
         }
