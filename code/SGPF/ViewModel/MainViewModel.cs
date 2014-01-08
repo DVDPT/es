@@ -77,7 +77,7 @@ namespace SGPF.ViewModel
 
         private void OnNewSession(SessionMessage obj)
         {
-            if (obj.Session == null || obj.Session.UserDetails == null || obj.Session.UserDetails == CurrentSession.UserDetails)
+            if (obj.Session == null || obj.Session.UserDetails == null || obj.Session == CurrentSession)
                 return;
 
             CurrentSession = obj.Session;

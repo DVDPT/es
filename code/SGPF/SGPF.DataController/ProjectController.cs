@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace SGPF.DataController
 {
-	public class ProjectController : IProjectController
-	{
+    public class ProjectController : IProjectController
+    {
         private static readonly string
             _onStateChangedMessageTemplate = "new state: {0}";
-        
+
         private readonly ISGPFDatabase _db;
 
-        public ProjectController(ISGPFDatabase db) 
+        public ProjectController(ISGPFDatabase db)
         {
             this._db = db;
         }
@@ -23,7 +23,7 @@ namespace SGPF.DataController
         public async Task Create(Data.Project project)
         {
             project.Id = _db.GenerateProjectId();
-            
+
             await _db.Projects.Add(project);
             await SendToDispatchQueue(project);
         }
@@ -55,7 +55,7 @@ namespace SGPF.DataController
 
         public async Task Suspend(Data.Project project)
         {
-            
+
         }
 
         public async Task Resume(Data.Project project)
@@ -63,15 +63,15 @@ namespace SGPF.DataController
             throw new NotImplementedException();
         }
 
-        private void SetState(Project proj, Data.ProjectState state) 
+        private void SetState(Project proj, Data.ProjectState state)
         {
             proj.State = state;
             Log(_onStateChangedMessageTemplate, state.ToString());
         }
 
-        private void Log(String template, params Object parameters) 
+        private void Log(String template, params Object[] parameters)
         {
-            
+
         }
     }
 }
