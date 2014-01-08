@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 
 namespace SGPF.Data
 {
-    public enum TechnicalOpinion 
+    public enum TechnicalOpinion
     {
         Approve,
         Reject,
@@ -138,7 +138,7 @@ namespace SGPF.Data
         /// </summary>
         public const string TypePropertyName = "Type";
 
-        private ProjectType _type ;
+        private ProjectType _type;
 
         /// <summary>
         /// Sets and gets the Type property.
@@ -295,29 +295,29 @@ namespace SGPF.Data
         /// </summary>
         public const string AssignedTechnitianPropertyName = "AssignedTechnitian";
 
-        private FinantialTechnician _finantialTechnician = null;
+        private FinancialManager _financialManager = null;
 
         /// <summary>
         /// Sets and gets the AssignedTecnitian property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public FinantialTechnician AssignedTecnitian
+        public FinancialManager AssignedTecnitian
         {
             get
             {
-                return _finantialTechnician;
+                return _financialManager;
             }
 
             set
             {
 
-                if (_finantialTechnician == value)
+                if (_financialManager == value)
                 {
                     return;
                 }
 
                 RaisePropertyChanging(AssignedTechnitianPropertyName);
-                _finantialTechnician = value;
+                _financialManager = value;
                 RaisePropertyChanged(AssignedTechnitianPropertyName);
             }
         }
@@ -439,7 +439,7 @@ namespace SGPF.Data
                 {
                     return;
                 }
-                
+
                 RaisePropertyChanging(RepresenterPropertyName);
                 _representerPerson = value;
                 RaisePropertyChanged(RepresenterPropertyName);
@@ -447,7 +447,36 @@ namespace SGPF.Data
         }
 
 
+        /// <summary>
+        /// The <see cref="IsSuspended" /> property's name.
+        /// </summary>
+        public const string IsSuspendedPropertyName = "IsSuspended";
 
+        private bool _isSuspended = false;
+
+        /// <summary>
+        /// Sets and gets the IsSuspended property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool IsSuspended
+        {
+            get
+            {
+                return _isSuspended;
+            }
+
+            set
+            {
+                if (_isSuspended == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(IsSuspendedPropertyName);
+                _isSuspended = value;
+                RaisePropertyChanged(IsSuspendedPropertyName);
+            }
+        }
 
 
 
@@ -467,7 +496,7 @@ namespace SGPF.Data
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Project) obj);
+            return Equals((Project)obj);
         }
 
         public override int GetHashCode()

@@ -30,7 +30,23 @@ namespace SGPF.Database.InMemory
 
         private void FillWithData()
         {
-            
+            _persons.Add(new Person
+            {
+                Designation = "Person",
+                Email = "sr@sr.sr",
+                Id = "123",
+                Name = "Person",
+                Phone = "123"
+            });
+
+            _persons.Add(new Technician()
+            {
+                Designation = "Technician",
+                Email = "str@sr.srt",
+                Id = "12",
+                Name = "Technician",
+                Phone = "12"
+            });
         }
         
         public int GenerateProjectId()

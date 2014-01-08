@@ -9,21 +9,21 @@ namespace SGPF.DataController
 {
     public interface IProjectController
     {
-        Task Create(Project project);
+        Task Create(Person person, Project project);
 
-        Task<Project> GetById(int id);
+        Task<Project> GetById(Person person, int id);
 
-        Task SendToDispatchQueue(Project project);
+        Task SendToDispatchQueue(Person person, Project project);
 
-        Task Archive(Project project);
+        Task Archive(Person person, Project project);
 
-        Task AddTechnicalOpinion(Project project, String comment, TechnicalOpinion opinion);
+        Task AddTechnicalOpinion(Person technician, Project project, String comment, TechnicalOpinion opinion);
 
-        Task AddDispatch(Project project, TechnicalOpinion opinion);
+        Task AddDispatch(Person person, Project project, TechnicalOpinion opinion);
 
-        Task Suspend(Project project);
+        Task Suspend(Person person, Project project);
 
-        Task Resume(Project project);
+        Task Resume(Person person, Project project);
 
     }
 }

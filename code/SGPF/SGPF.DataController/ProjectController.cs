@@ -8,77 +8,97 @@ using System.Threading.Tasks;
 
 namespace SGPF.DataController
 {
-	public class ProjectController : IProjectController
-	{
+    public class ProjectController : IProjectController
+    {
         private static readonly string
+            _onProjectCreatedMessageTemplate = "created: {0}",
+            _onProjectSearchMessageTemplate = "searched",
             _onStateChangedMessageTemplate = "new state: {0}",
+            _onTechnicalOpinionMessageTemplate = "tech. opinion: {0} - {1}",
             _onSuspensionStateChangeMessageTemplate = "suspended: {1}";
         
         private readonly ISGPFDatabase _db;
 
-        public ProjectController(ISGPFDatabase db) 
+        public ProjectController(ISGPFDatabase db)
         {
             this._db = db;
         }
 
-        public async Task Create(Data.Project project)
+        public async Task Create(Person person, Data.Project project)
         {
             project.Id = _db.GenerateProjectId();
-            
+
             await _db.Projects.Add(project);
-            await SendToDispatchQueue(project);
+            await SendToDispatchQueue(person, project);
+
+            AddToHistory(person, project, _onProjectCreatedMessageTemplate, project.Id);
         }
 
-        public async Task<Data.Project> GetById(int id)
+        public async Task<Data.Project> GetById(Person person, int id)
         {
-            return await _db.Projects.Get(id);
+            Project proj = await _db.Projects.Get(id);
+            AddToHistory(person, proj, _onProjectSearchMessageTemplate);
+            return proj;
         }
 
-        public async Task SendToDispatchQueue(Data.Project project)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Archive(Data.Project project)
-        {
-            SetState(project, ProjectState.Archived);
-        }
-
-        public async Task AddTechnicalOpinion(Data.Project project, string comment, Data.TechnicalOpinion opinion)
+        public async Task SendToDispatchQueue(Person person, Data.Project project)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddDispatch(Data.Project project, Data.TechnicalOpinion opinion)
+        public async Task Archive(Person person, Data.Project project)
         {
-            throw new NotImplementedException();
+            SetState(person, project, ProjectState.Archived);
         }
 
-        public async Task Suspend(Data.Project project)
+        public async Task AddTechnicalOpinion(Person person, Data.Project project, string comment, Data.TechnicalOpinion opinion)
         {
-            SetProjectSuspensionState(project, true);
+            AddToHistory(person, project, _onTechnicalOpinionMessageTemplate, opinion.ToString(), comment);
+
+            if (opinion == TechnicalOpinion.Reject)
+            {
+                await Archive(person, project);
+                return;
+            }
+
+            await SendToDispatchQueue(person, project);
         }
 
-        public async Task Resume(Data.Project project)
+        public Task AddDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion)
         {
-            throw new NotImplementedException();
+            
         }
 
-        private void SetProjectSuspensionState(Project project, bool suspend) 
+        public async Task Suspend(Person person, Data.Project project)
+        {
+            SetSuspensionState(person, project, true);
+        }
+
+        public async Task Resume(Person person, Data.Project project)
+        {
+            SetSuspensionState(person, project, false);
+        }
+
+        private void SetSuspensionState(Person person, Project project, bool suspend) 
         {
             project.IsSuspended = suspend;
-            Log(project, _onSuspensionStateChangeMessageTemplate, suspend);
+            AddToHistory(person, project, _onSuspensionStateChangeMessageTemplate, suspend);
         }
 
-        private void SetState(Project proj, Data.ProjectState state) 
+        private void SetState(Person person, Project proj, Data.ProjectState state)
         {
             proj.State = state;
-            Log(proj, _onStateChangedMessageTemplate, state.ToString());
+            AddToHistory(person, proj, _onStateChangedMessageTemplate, state.ToString());
         }
 
-        private void Log(Project project, String template, Object parameters) 
+        private void AddToHistory(Person person, Project project, string template, params object[] parameters) 
         {
-            
+            project.History.Add(new ProjectHistory()
+            {
+                ProjectId = project.Id,
+                Date = System.DateTime.Now,
+                Description = String.Format("[{0}] {1} - {2}", person.Id, person.Name, String.Format(template, parameters))
+            });
         }
     }
 }
