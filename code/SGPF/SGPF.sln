@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGPF", "SGPF.csproj", "{FFED6684-18D3-497D-9EE7-867ACE14A18E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGPF.Database", "..\SGPE.Database\SGPF.Database.csproj", "{B071AF99-EBE9-4C9F-B076-952BB48CF37F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGPF.Data", "..\SGPF.Data\SGPF.Data.csproj", "{205D6528-8801-486B-80F4-DE0A5FC68080}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGPF.Database.InMemory", "..\SGPF.Database.InMemory\SGPF.Database.InMemory.csproj", "{7F47EE3B-D346-425C-A782-4F33875E2D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGPF.Injector", "SGPF.Injector\SGPF.Injector.csproj", "{38CF1AB1-500F-41B3-8C2D-C8FCA40C29F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGPF.DataController", "SGPF.DataController\SGPF.DataController.csproj", "{FBDFEA74-31B3-48CD-A943-1F8B3F3AFB83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFED6684-18D3-497D-9EE7-867ACE14A18E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFED6684-18D3-497D-9EE7-867ACE14A18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFED6684-18D3-497D-9EE7-867ACE14A18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFED6684-18D3-497D-9EE7-867ACE14A18E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B071AF99-EBE9-4C9F-B076-952BB48CF37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B071AF99-EBE9-4C9F-B076-952BB48CF37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B071AF99-EBE9-4C9F-B076-952BB48CF37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B071AF99-EBE9-4C9F-B076-952BB48CF37F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205D6528-8801-486B-80F4-DE0A5FC68080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205D6528-8801-486B-80F4-DE0A5FC68080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205D6528-8801-486B-80F4-DE0A5FC68080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205D6528-8801-486B-80F4-DE0A5FC68080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F47EE3B-D346-425C-A782-4F33875E2D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F47EE3B-D346-425C-A782-4F33875E2D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F47EE3B-D346-425C-A782-4F33875E2D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F47EE3B-D346-425C-A782-4F33875E2D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38CF1AB1-500F-41B3-8C2D-C8FCA40C29F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38CF1AB1-500F-41B3-8C2D-C8FCA40C29F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38CF1AB1-500F-41B3-8C2D-C8FCA40C29F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38CF1AB1-500F-41B3-8C2D-C8FCA40C29F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDFEA74-31B3-48CD-A943-1F8B3F3AFB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDFEA74-31B3-48CD-A943-1F8B3F3AFB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDFEA74-31B3-48CD-A943-1F8B3F3AFB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDFEA74-31B3-48CD-A943-1F8B3F3AFB83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
