@@ -10,6 +10,9 @@ namespace SGPF.DataController
 {
 	public class ProjectController : IProjectController
 	{
+        private static readonly string
+            _onStateChangedMessageTemplate = "new state: {0}";
+        
         private readonly ISGPFDatabase _db;
 
         public ProjectController(ISGPFDatabase db) 
@@ -27,7 +30,7 @@ namespace SGPF.DataController
 
         public async Task<Data.Project> GetById(int id)
         {
-            await _db.Projects.Get(id);
+            return await _db.Projects.Get(id);
         }
 
         public async Task SendToDispatchQueue(Data.Project project)
@@ -40,7 +43,7 @@ namespace SGPF.DataController
             SetState(project, ProjectState.Archived);
         }
 
-        public Task AddTechnicalOpinion(Data.Project project, string comment, Data.TechnicalOpinion opinion)
+        public async Task AddTechnicalOpinion(Data.Project project, string comment, Data.TechnicalOpinion opinion)
         {
             throw new NotImplementedException();
         }
@@ -50,17 +53,23 @@ namespace SGPF.DataController
             throw new NotImplementedException();
         }
 
-        public Task Suspend(Data.Project project)
+        public async Task Suspend(Data.Project project)
         {
             
         }
 
-        public Task Resume(Data.Project project)
+        public async Task Resume(Data.Project project)
         {
             throw new NotImplementedException();
         }
 
         private void SetState(Project proj, Data.ProjectState state) 
+        {
+            proj.State = state;
+            Log(_onStateChangedMessageTemplate, state.ToString());
+        }
+
+        private void Log(String template, params Object parameters) 
         {
             
         }
