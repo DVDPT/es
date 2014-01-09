@@ -11,7 +11,7 @@ namespace SGPF.DataController
 {
     public class ProjectController : IProjectController
     {
-        private static const string
+        private const string
             _onProjectCreatedMessageFormat = "created: {0}",
             _onProjectSearchMessageFormat = "searched",
             _onStateChangedMessageFormat = "new state: {0}",
@@ -19,7 +19,7 @@ namespace SGPF.DataController
             _onAssignedFinancialManagerMessageFormat = "financial manager: [{0}] {1}",
             _onTechnicalOpinionMessageFormat = "tech. opinion: {0} - {1}",
             _onSuspensionStateChangeMessageFormat = "suspended: {1}";
-        
+
         private readonly ISGPFDatabase _db;
 
         public ProjectController(ISGPFDatabase db)
@@ -47,7 +47,7 @@ namespace SGPF.DataController
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
-            
+
             SetState(person, project, ProjectState.AwaitingDispatch);
         }
 
@@ -75,26 +75,25 @@ namespace SGPF.DataController
             await SendToDispatchQueue(person, project);
         }
 
-        public async Task AddDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion)
+        public async Task AddCommiteeDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
             AddToHistory(person, project, _onAddDispatchMessageFormat, opinion.ToString());
 
-            switch (opinion) 
+            switch (opinion)
             {
                 case TechnicalOpinion.Approve:
 
-                    if (project.AssignedTecnitian == null)
+                    if (manager == null)
                     {
-                        project.AssignedTecnitian = (await _db.Persons.All()).OfType<FinancialManager>().Random();
-                        AddToHistory(person, project, _onAssignedFinancialManagerMessageFormat, project.AssignedTecnitian.Id, project.AssignedTecnitian.Name);
-                        SetState(person, project, ProjectState.WaitingForTechnicalOpinion);
+                        SetState(person, project, ProjectState.InPayment);
                     }
                     else 
                     {
-                        SetState(person, project, ProjectState.InPayment);
+                        project.Manager = manager;
+                        AddToHistory(person, project, _onAssignedFinancialManagerMessageFormat, project.Manager.Id, project.Manager.Name);
                     }
 
                     break;
@@ -113,20 +112,29 @@ namespace SGPF.DataController
         public async Task Suspend(Person person, Data.Project project)
         {
             if (project.IsSuspended)
+            {
                 throw new SuspendedProjectException(project);
-
-            // TODO project.SuspendedBy = person;
+            }
+            
+            project.SuspendedBy = person;
             SetSuspensionState(person, project, true);
         }
 
         public async Task Resume(Person person, Data.Project project)
         {
+            ///
+            /// When a project is suspended it have to be resumed by the user that suspend it.
+            ///
+            if (project.IsSuspended && !person.Equals(project.SuspendedBy))
+            {
+                throw new InvalidResumeOperationException(project.SuspendedBy);
+            }
+            
             SetSuspensionState(person, project, false);
         }
 
-        private void SetSuspensionState(Person person, Project project, bool suspend) 
+        private void SetSuspensionState(Person person, Project project, bool suspend)
         {
-            project.IsSuspended = suspend;
             AddToHistory(person, project, _onSuspensionStateChangeMessageFormat, suspend);
         }
 
@@ -136,7 +144,7 @@ namespace SGPF.DataController
             AddToHistory(person, proj, _onStateChangedMessageFormat, state.ToString());
         }
 
-        private void AddToHistory(Person person, Project project, string template, params object[] parameters) 
+        private void AddToHistory(Person person, Project project, string template, params object[] parameters)
         {
             project.History.Add(new ProjectHistory()
             {

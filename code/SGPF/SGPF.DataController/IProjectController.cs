@@ -19,11 +19,10 @@ namespace SGPF.DataController
 
         Task AddTechnicalOpinion(Person technician, Project project, String comment, TechnicalOpinion opinion);
 
-        Task AddDispatch(Person person, Project project, TechnicalOpinion opinion);
+        Task AddCommiteeDispatch(Person person, Project project, TechnicalOpinion opinion, FinancialManager manager = null);
 
         Task Suspend(Person person, Project project);
 
         Task Resume(Person person, Project project);
-
     }
 }

@@ -28,7 +28,6 @@ namespace SGPF.Data
         Undefined,
         Open,
         AwaitingDispatch,
-        WaitingForTechnicalOpinion,
         Rejected,
         InPayment,
         Closed,
@@ -47,6 +46,12 @@ namespace SGPF.Data
         public const string PromoterPropertyName = "Promoter";
 
         private Promoter _promoter = null;
+
+
+        public bool IsSuspended 
+        {
+            get { return SuspendedBy != null; }
+        }
 
         /// <summary>
         /// Sets and gets the Promoter property.
@@ -291,38 +296,7 @@ namespace SGPF.Data
         }
 
 
-        /// <summary>
-        /// The <see cref="AssignedTecnitian" /> property's name.
-        /// </summary>
-        public const string AssignedTechnitianPropertyName = "AssignedTechnitian";
-
-        private FinancialManager _financialManager = null;
-
-        /// <summary>
-        /// Sets and gets the AssignedTecnitian property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public FinancialManager AssignedTecnitian
-        {
-            get
-            {
-                return _financialManager;
-            }
-
-            set
-            {
-
-                if (_financialManager == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(AssignedTechnitianPropertyName);
-                _financialManager = value;
-                RaisePropertyChanged(AssignedTechnitianPropertyName);
-            }
-        }
-
+        
         /// <summary>
         /// The <see cref="LoanRate" /> property's name.
         /// </summary>
@@ -447,44 +421,68 @@ namespace SGPF.Data
             }
         }
 
-
         /// <summary>
-        /// The <see cref="IsSuspended" /> property's name.
+        /// The <see cref="SuspendedBy" /> property's name.
         /// </summary>
-        public const string IsSuspendedPropertyName = "IsSuspended";
+        public const string SuspendedByPropertyName = "SuspendedBy";
 
-        private bool _isSuspended = false;
+        private Person _suspendedByPerson;
 
         /// <summary>
-        /// Sets and gets the IsSuspended property.
+        /// Sets and gets the SuspendedBy property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public bool IsSuspended
+        public Person SuspendedBy
         {
             get
             {
-                return _isSuspended;
+                return _suspendedByPerson;
             }
 
             set
             {
-                if (_isSuspended == value)
+                if (_suspendedByPerson == value)
                 {
                     return;
                 }
 
-                RaisePropertyChanging(IsSuspendedPropertyName);
-                _isSuspended = value;
-                RaisePropertyChanged(IsSuspendedPropertyName);
+                RaisePropertyChanging(SuspendedByPropertyName);
+                _suspendedByPerson = value;
+                RaisePropertyChanged(SuspendedByPropertyName);
             }
         }
 
+        /// <summary>
+        /// The <see cref="Manager" /> property's name.
+        /// </summary>
+        public const string ManagerPropertyName = "Manager";
 
+        private FinancialManager _managerPerson;
 
+        /// <summary>
+        /// Sets and gets the Manager property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public FinancialManager Manager
+        {
+            get
+            {
+                return _managerPerson;
+            }
 
+            set
+            {
+                if (_managerPerson == value)
+                {
+                    return;
+                }
 
-
-
+                RaisePropertyChanging(ManagerPropertyName);
+                _managerPerson = value;
+                RaisePropertyChanged(ManagerPropertyName);
+            }
+        }
+        
         public bool Equals(Project other)
         {
             if (ReferenceEquals(null, other)) return false;
