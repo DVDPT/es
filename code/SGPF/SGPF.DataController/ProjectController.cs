@@ -137,11 +137,6 @@ namespace SGPF.DataController
             SetSuspensionState(person, project, false);
         }
 
-        public Task<IEnumerable<Promoter>> GetPromoters()
-        {
-            return _db.Promoters.All();
-        }
-
         private void SetSuspensionState(BasePerson person, Project project, bool suspend)
         {
             AddToHistory(person, project, _onSuspensionStateChangeMessageFormat, suspend);
