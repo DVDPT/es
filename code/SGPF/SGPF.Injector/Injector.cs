@@ -17,6 +17,7 @@ namespace SGPF.Injector
         {
             container.Register<IMessenger, Messenger>();
 
+            container.Register<IProjectController, ProjectController>();
             container.Register<ISGPFDatabase, InMemorySGPFDatabase>();
             container.Register<IAuthenticationService, MockAuthenticationService>();
         }

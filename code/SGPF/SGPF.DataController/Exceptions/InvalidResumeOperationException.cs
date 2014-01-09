@@ -9,7 +9,7 @@ namespace SGPF.DataController.Exceptions
 {
     public class InvalidResumeOperationException : Exception
     {
-        public InvalidResumeOperationException(Person suspendedBy)
+        public InvalidResumeOperationException(BasePerson suspendedBy)
             : base(string.Format(ErrorConstants.InvalidResumeOperationFormat, suspendedBy.Name, suspendedBy.Id))
         {
         }

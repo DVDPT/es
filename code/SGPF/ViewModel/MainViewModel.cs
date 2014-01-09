@@ -23,6 +23,7 @@ namespace SGPF.ViewModel
     /// </summary>
     public class MainViewModel : BaseAppViewModel
     {
+        private readonly IMessenger _messenger;
         private readonly IAuthenticationService _authenticationService;
 
         /// <summary>
@@ -61,20 +62,31 @@ namespace SGPF.ViewModel
         /// </summary>
         public MainViewModel(IMessenger messenger, IAuthenticationService authenticationService)
         {
+            _messenger = messenger;
             _authenticationService = authenticationService;
             messenger.Register<SessionMessage>(this, OnNewSession);
 
 
             LogoutCommand = new RelayCommand(LogoutCommandImpl);
+            NewProjectCommand = new RelayCommand(NewProjectCommandImpl);
+        }
+
+        private void NewProjectCommandImpl()
+        {
+            _messenger.Send(new ProjectMessage(CurrentSession.UserDetails));
         }
 
         private void LogoutCommandImpl()
         {
-            SafeRun(() => _authenticationService.EndSession(CurrentSession));
+            SafeRun(async () =>
+            {
+                await _authenticationService.EndSession(CurrentSession);
+                CurrentSession = null;
+            });
         }
 
         public ICommand LogoutCommand { get; private set; }
-
+        public ICommand NewProjectCommand { get; private set; }
         private void OnNewSession(SessionMessage obj)
         {
             if (obj.Session == null || obj.Session.UserDetails == null || obj.Session == CurrentSession)
@@ -83,5 +95,9 @@ namespace SGPF.ViewModel
             CurrentSession = obj.Session;
 
         }
+
+        
     }
+
+    
 }

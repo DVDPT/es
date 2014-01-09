@@ -36,6 +36,15 @@ namespace SGPF.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<ProjectViewModel>();
+        }
+
+        public ProjectViewModel Project
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ProjectViewModel>();
+            }
         }
 
         public MainViewModel Main

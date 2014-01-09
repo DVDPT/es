@@ -27,7 +27,7 @@ namespace SGPF.DataController
             this._db = db;
         }
 
-        public async Task Create(Person person, Data.Project project)
+        public async Task Create(BasePerson person, Data.Project project)
         {
             project.Id = _db.GenerateProjectId();
 
@@ -36,14 +36,14 @@ namespace SGPF.DataController
             AddToHistory(person, project, _onProjectCreatedMessageFormat, project.Id);
         }
 
-        public async Task<Data.Project> GetById(Person person, int id)
+        public async Task<Data.Project> GetById(BasePerson person, int id)
         {
             Project proj = await _db.Projects.Get(id);
             AddToHistory(person, proj, _onProjectSearchMessageFormat);
             return proj;
         }
 
-        public async Task SendToDispatchQueue(Person person, Data.Project project)
+        public async Task SendToDispatchQueue(BasePerson person, Data.Project project)
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
@@ -51,7 +51,7 @@ namespace SGPF.DataController
             SetState(person, project, ProjectState.AwaitingDispatch);
         }
 
-        public async Task Archive(Person person, Data.Project project)
+        public async Task Archive(BasePerson person, Data.Project project)
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
@@ -59,7 +59,7 @@ namespace SGPF.DataController
             SetState(person, project, ProjectState.Archived);
         }
 
-        public async Task AddTechnicalOpinion(Person person, Data.Project project, string comment, Data.TechnicalOpinion opinion)
+        public async Task AddTechnicalOpinion(BasePerson person, Data.Project project, string comment, Data.TechnicalOpinion opinion)
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
@@ -75,7 +75,7 @@ namespace SGPF.DataController
             await SendToDispatchQueue(person, project);
         }
 
-        public async Task AddCommiteeDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
+        public async Task AddCommiteeDispatch(BasePerson person, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
@@ -109,18 +109,22 @@ namespace SGPF.DataController
             }
         }
 
-        public async Task Suspend(Person person, Data.Project project)
+        public async Task Suspend(BasePerson person, Data.Project project)
         {
             if (project.IsSuspended)
             {
                 throw new SuspendedProjectException(project);
             }
-            
-            project.SuspendedBy = person;
-            SetSuspensionState(person, project, true);
+
+            if (person is Technician || person is FinancialManager || person is FinantialCommitteeMember)
+            {
+                project.SuspendedBy = person;
+                SetSuspensionState(person, project, true);
+            }
+           
         }
 
-        public async Task Resume(Person person, Data.Project project)
+        public async Task Resume(BasePerson person, Data.Project project)
         {
             ///
             /// When a project is suspended it have to be resumed by the user that suspend it.
@@ -129,22 +133,27 @@ namespace SGPF.DataController
             {
                 throw new InvalidResumeOperationException(project.SuspendedBy);
             }
-            
+
             SetSuspensionState(person, project, false);
         }
 
-        private void SetSuspensionState(Person person, Project project, bool suspend)
+        public Task<IEnumerable<Promoter>> GetPromoters()
+        {
+            return _db.Promoters.All();
+        }
+
+        private void SetSuspensionState(BasePerson person, Project project, bool suspend)
         {
             AddToHistory(person, project, _onSuspensionStateChangeMessageFormat, suspend);
         }
 
-        public void SetState(Person person, Project proj, Data.ProjectState state)
+        public void SetState(BasePerson person, Project proj, Data.ProjectState state)
         {
             proj.State = state;
             AddToHistory(person, proj, _onStateChangedMessageFormat, state.ToString());
         }
 
-        private void AddToHistory(Person person, Project project, string template, params object[] parameters)
+        private void AddToHistory(BasePerson person, Project project, string template, params object[] parameters)
         {
             project.History.Add(new ProjectHistory()
             {

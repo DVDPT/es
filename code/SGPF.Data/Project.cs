@@ -426,13 +426,13 @@ namespace SGPF.Data
         /// </summary>
         public const string SuspendedByPropertyName = "SuspendedBy";
 
-        private Person _suspendedByPerson;
+        private BasePerson _suspendedByPerson;
 
         /// <summary>
         /// Sets and gets the SuspendedBy property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public Person SuspendedBy
+        public BasePerson SuspendedBy
         {
             get
             {

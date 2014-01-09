@@ -9,20 +9,22 @@ namespace SGPF.DataController
 {
     public interface IProjectController
     {
-        Task Create(Person person, Project project);
+        Task Create(BasePerson person, Project project);
 
-        Task<Project> GetById(Person person, int id);
+        Task<Project> GetById(BasePerson person, int id);
 
-        Task SendToDispatchQueue(Person person, Project project);
+        Task SendToDispatchQueue(BasePerson person, Project project);
 
-        Task Archive(Person person, Project project);
+        Task Archive(BasePerson person, Project project);
 
-        Task AddTechnicalOpinion(Person technician, Project project, String comment, TechnicalOpinion opinion);
+        Task AddTechnicalOpinion(BasePerson technician, Project project, String comment, TechnicalOpinion opinion);
 
-        Task AddCommiteeDispatch(Person person, Project project, TechnicalOpinion opinion, FinancialManager manager = null);
+        Task AddCommiteeDispatch(BasePerson person, Project project, TechnicalOpinion opinion, FinancialManager manager = null);
 
-        Task Suspend(Person person, Project project);
+        Task Suspend(BasePerson person, Project project);
 
-        Task Resume(Person person, Project project);
+        Task Resume(BasePerson person, Project project);
+
+        Task<IEnumerable<Promoter>> GetPromoters();
     }
 }

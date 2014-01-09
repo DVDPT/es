@@ -65,13 +65,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Conveters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Conveters\NullToVisibilityConverter.cs" />
+    <Compile Include="Conveters\PersonTypeToVisibilityConverter.cs" />
     <Compile Include="LoginPopup.xaml.cs">
       <DependentUpon>LoginPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Messages\SessionMessage.cs" />
+    <Compile Include="Messages\Messages.cs" />
+    <Compile Include="ProjectInfo.xaml.cs">
+      <DependentUpon>ProjectInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseAppViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ProjectViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="LoginPopup.xaml">
       <SubType>Designer</SubType>
@@ -89,6 +96,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ProjectInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

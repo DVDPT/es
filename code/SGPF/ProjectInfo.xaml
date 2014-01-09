@@ -1,0 +1,29 @@
+﻿<Window x:Class="SGPF.ProjectInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Project Info" Height="300" Width="300"
+        DataContext="{Binding Project ,Source={StaticResource Locator}}"
+        >
+    <Grid>
+        <ScrollViewer>
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="Id"/>
+                    <TextBlock Text="{Binding Project.Id}"/>
+                    <TextBlock Text="Created Time"/>
+                    <TextBlock Text="{Binding Project.CreatedTime}"/>
+                    <TextBlock Text="Promoter"/>
+                    <TextBlock Text="{Binding Project.Promoter.Nif}" Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}"/>
+                    <ListBox 
+                        Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"
+                            >
+                        
+                    </ListBox>
+
+
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
