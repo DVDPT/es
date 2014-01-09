@@ -8,6 +8,8 @@ namespace SGPF.DataController.Exceptions
 {
     static class ErrorConstants
     {
-        public const string PersonNotFoundExceptionFormat = "The person with id \"{0}\" coudn't be found";
+        public const string 
+            PersonNotFoundExceptionFormat = "The person with id \"{0}\" coudn't be found",
+            SuspendedProjectExceptionFormat = "Project {0} it's suspended";
     }
 }

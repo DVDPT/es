@@ -28,6 +28,7 @@ namespace SGPF.Data
         Undefined,
         Open,
         AwaitingDispatch,
+        WaitingForTechnicalOpinion,
         Rejected,
         InPayment,
         Closed,

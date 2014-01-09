@@ -1,5 +1,6 @@
 ﻿using SGPF.Data;
 using SGPF.Database;
+using SGPF.DataController.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,14 @@ namespace SGPF.DataController
 {
     public class ProjectController : IProjectController
     {
-        private static readonly string
-            _onProjectCreatedMessageTemplate = "created: {0}",
-            _onProjectSearchMessageTemplate = "searched",
-            _onStateChangedMessageTemplate = "new state: {0}",
-            _onTechnicalOpinionMessageTemplate = "tech. opinion: {0} - {1}",
-            _onSuspensionStateChangeMessageTemplate = "suspended: {1}";
+        private static const string
+            _onProjectCreatedMessageFormat = "created: {0}",
+            _onProjectSearchMessageFormat = "searched",
+            _onStateChangedMessageFormat = "new state: {0}",
+            _onAddDispatchMessageFormat = "dispatch: {0}",
+            _onAssignedFinancialManagerMessageFormat = "financial manager: [{0}] {1}",
+            _onTechnicalOpinionMessageFormat = "tech. opinion: {0} - {1}",
+            _onSuspensionStateChangeMessageFormat = "suspended: {1}";
         
         private readonly ISGPFDatabase _db;
 
@@ -29,31 +32,39 @@ namespace SGPF.DataController
             project.Id = _db.GenerateProjectId();
 
             await _db.Projects.Add(project);
-            await SendToDispatchQueue(person, project);
 
-            AddToHistory(person, project, _onProjectCreatedMessageTemplate, project.Id);
+            AddToHistory(person, project, _onProjectCreatedMessageFormat, project.Id);
         }
 
         public async Task<Data.Project> GetById(Person person, int id)
         {
             Project proj = await _db.Projects.Get(id);
-            AddToHistory(person, proj, _onProjectSearchMessageTemplate);
+            AddToHistory(person, proj, _onProjectSearchMessageFormat);
             return proj;
         }
 
         public async Task SendToDispatchQueue(Person person, Data.Project project)
         {
-            throw new NotImplementedException();
+            if (project.IsSuspended)
+                throw new SuspendedProjectException(project);
+            
+            SetState(person, project, ProjectState.AwaitingDispatch);
         }
 
         public async Task Archive(Person person, Data.Project project)
         {
+            if (project.IsSuspended)
+                throw new SuspendedProjectException(project);
+
             SetState(person, project, ProjectState.Archived);
         }
 
         public async Task AddTechnicalOpinion(Person person, Data.Project project, string comment, Data.TechnicalOpinion opinion)
         {
-            AddToHistory(person, project, _onTechnicalOpinionMessageTemplate, opinion.ToString(), comment);
+            if (project.IsSuspended)
+                throw new SuspendedProjectException(project);
+
+            AddToHistory(person, project, _onTechnicalOpinionMessageFormat, opinion.ToString(), comment);
 
             if (opinion == TechnicalOpinion.Reject)
             {
@@ -66,11 +77,45 @@ namespace SGPF.DataController
 
         public async Task AddDispatch(Person person, Data.Project project, Data.TechnicalOpinion opinion)
         {
-            
+            if (project.IsSuspended)
+                throw new SuspendedProjectException(project);
+
+            AddToHistory(person, project, _onAddDispatchMessageFormat, opinion.ToString());
+
+            switch (opinion) 
+            {
+                case TechnicalOpinion.Approve:
+
+                    if (project.AssignedTecnitian == null)
+                    {
+                        project.AssignedTecnitian = (await _db.Persons.All()).OfType<FinancialManager>().Random();
+                        AddToHistory(person, project, _onAssignedFinancialManagerMessageFormat, project.AssignedTecnitian.Id, project.AssignedTecnitian.Name);
+                        SetState(person, project, ProjectState.WaitingForTechnicalOpinion);
+                    }
+                    else 
+                    {
+                        SetState(person, project, ProjectState.InPayment);
+                    }
+
+                    break;
+
+                case TechnicalOpinion.Reject:
+                    SetState(person, project, ProjectState.Rejected);
+                    break;
+
+                case TechnicalOpinion.ConvertToLoan:
+                    project.Type = ProjectType.Loan;
+                    AddToHistory(person, project, "converted to loan");
+                    break;
+            }
         }
 
         public async Task Suspend(Person person, Data.Project project)
         {
+            if (project.IsSuspended)
+                throw new SuspendedProjectException(project);
+
+            // TODO project.SuspendedBy = person;
             SetSuspensionState(person, project, true);
         }
 
@@ -82,13 +127,13 @@ namespace SGPF.DataController
         private void SetSuspensionState(Person person, Project project, bool suspend) 
         {
             project.IsSuspended = suspend;
-            AddToHistory(person, project, _onSuspensionStateChangeMessageTemplate, suspend);
+            AddToHistory(person, project, _onSuspensionStateChangeMessageFormat, suspend);
         }
 
-        private void SetState(Person person, Project proj, Data.ProjectState state)
+        public void SetState(Person person, Project proj, Data.ProjectState state)
         {
             proj.State = state;
-            AddToHistory(person, proj, _onStateChangedMessageTemplate, state.ToString());
+            AddToHistory(person, proj, _onStateChangedMessageFormat, state.ToString());
         }
 
         private void AddToHistory(Person person, Project project, string template, params object[] parameters) 

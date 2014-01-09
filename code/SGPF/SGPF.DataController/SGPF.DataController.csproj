@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\SuspendedProjectException.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IProjectController.cs" />
     <Compile Include="ProjectController.cs" />
     <Compile Include="MockAuthenticationService.cs" />
