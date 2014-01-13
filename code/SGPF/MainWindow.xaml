@@ -35,11 +35,11 @@
         </Grid>
         
         <TabControl Grid.Row="1">
-            <TabItem Header="Technician" Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource TechnicianToVisibilityConverter}}">
+            <TabItem Header="Technician" 
+                     Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource TechnicianToVisibilityConverter}}">
                 <StackPanel>
                     <Button
                         Content="Add a Project"
-                        Command="{Binding NewProjectCommand}"
                         Click="OnNewProjectClicked"
                     />
                 </StackPanel>

@@ -37,6 +37,10 @@ namespace SGPF.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ProjectViewModel>();
+
+            //  Force instance creation
+            var xpto = Project;
+
         }
 
         public ProjectViewModel Project

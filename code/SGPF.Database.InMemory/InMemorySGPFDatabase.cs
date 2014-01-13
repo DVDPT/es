@@ -13,8 +13,6 @@ namespace SGPF.Database.InMemory
         private readonly InMemoryAsyncEntityMapper<string, Promoter> _promoters;
         private readonly InMemoryAsyncEntityMapper<string, BasePerson> _persons;
 
-        private static int _projectCount = 0;
-
         public IAsyncEntityMapper<int, Project> Projects { get { return _projects; } }
         public IAsyncEntityMapper<string, Promoter> Promoters { get { return _promoters; } }
         public IAsyncEntityMapper<string, BasePerson> Persons { get { return _persons; } }
@@ -47,11 +45,35 @@ namespace SGPF.Database.InMemory
                 Name = "Technician",
                 Phone = "12"
             });
+
+            _promoters.Add(new Promoter
+            {
+                Address = "Rua",
+                Nationality = "Italian",
+                Nif = "nif1"
+
+            });
+
+            _promoters.Add(new Promoter
+            {
+                Address = "Rua",
+                Nationality = "Russian",
+                Nif = "nif13"
+
+            });
+
+            _promoters.Add(new Promoter
+            {
+                Address = "Rua",
+                Nationality = "Pt",
+                Nif = "nif12"
+
+            });
         }
-        
+
         public int GenerateProjectId()
         {
-            return _projectCount++;
+            return _projects.Count;
         }
     }
 }

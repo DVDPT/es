@@ -36,7 +36,6 @@ namespace SGPF.Data
 
     public class Project : ObservableObject, IEquatable<Project>
     {
-        public int Id { get; set; }
         public DateTime CreatedTime { get; set; }
 
 
@@ -48,9 +47,40 @@ namespace SGPF.Data
         private Promoter _promoter = null;
 
 
-        public bool IsSuspended 
+        public bool IsSuspended
         {
             get { return SuspendedBy != null; }
+        }
+
+        /// <summary>
+        /// The <see cref="Id" /> property's name.
+        /// </summary>
+        public const string IdPropertyName = "Id";
+
+        private int _id = -1;
+
+        /// <summary>
+        /// Sets and gets the Id property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                if (_id == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(IdPropertyName);
+                _id = value;
+                RaisePropertyChanged(IdPropertyName);
+            }
         }
 
         /// <summary>
@@ -108,36 +138,7 @@ namespace SGPF.Data
             }
         }
 
-        /// <summary>
-        /// The <see cref="Responsible" /> property's name.
-        /// </summary>
-        public const string ResponsiblePropertyName = "Responsible";
 
-        private Person _responsiblePerson = null;
-
-        /// <summary>
-        /// Sets and gets the Responsible property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public Person Responsible
-        {
-            get
-            {
-                return _responsiblePerson;
-            }
-
-            set
-            {
-                if (_responsiblePerson == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(ResponsiblePropertyName);
-                _responsiblePerson = value;
-                RaisePropertyChanged(ResponsiblePropertyName);
-            }
-        }
 
         /// <summary>
         /// The <see cref="Type" /> property's name.
@@ -296,7 +297,7 @@ namespace SGPF.Data
         }
 
 
-        
+
         /// <summary>
         /// The <see cref="LoanRate" /> property's name.
         /// </summary>
@@ -415,6 +416,7 @@ namespace SGPF.Data
                     return;
                 }
 
+
                 RaisePropertyChanging(RepresenterPropertyName);
                 _representerPerson = value;
                 RaisePropertyChanged(RepresenterPropertyName);
@@ -482,7 +484,32 @@ namespace SGPF.Data
                 RaisePropertyChanged(ManagerPropertyName);
             }
         }
-        
+
+        public bool IsValid()
+        {
+            if (((int)Amount) == 0)
+            {
+                return false;
+
+            }
+
+            if (string.IsNullOrEmpty(Description)) return false;
+
+
+            if (ExecutionDate <= DateTime.Now) return false;
+
+
+
+            if (Promoter.IsValid() == false)
+                return false;
+
+            if (this.Representer.IsValid() == false)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool Equals(Project other)
         {
             if (ReferenceEquals(null, other)) return false;

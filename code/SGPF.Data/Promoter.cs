@@ -102,5 +102,12 @@ namespace SGPF.Data
                 RaisePropertyChanged(NationalityPropertyName);
             }
         }
+
+        public bool IsValid()
+        {
+            return
+                !(string.IsNullOrEmpty(Nationality) || string.IsNullOrEmpty(this.Nif) ||
+                  string.IsNullOrEmpty(this.Address));
+        }
     }
 }

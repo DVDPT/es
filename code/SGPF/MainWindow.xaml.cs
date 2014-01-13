@@ -57,10 +57,6 @@ namespace SGPF
             }
         }
 
-        private void OpenLoginPopUp()
-        {
-        }
-
         private void LoginClicked(object sender, RoutedEventArgs e)
         {
             _mainViewModel_PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
@@ -68,7 +64,8 @@ namespace SGPF
 
         private void OnNewProjectClicked(object sender, RoutedEventArgs e)
         {
-            
+            _mainViewModel.NewProjectCommand.Execute(null);
+            new ProjectInfo().ShowDialog();
         }
     }
 }

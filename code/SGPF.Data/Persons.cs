@@ -45,6 +45,13 @@ namespace SGPF.Data
         {
             get { return PersonType.Regular; }
         }
+
+        public bool IsValid()
+        {
+            return
+                !(string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Designation) || string.IsNullOrEmpty(Id) ||
+                  string.IsNullOrEmpty(Phone));
+        }
     }
     public abstract class BasePerson : ObservableObject
     {
