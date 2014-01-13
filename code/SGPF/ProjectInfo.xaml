@@ -8,6 +8,7 @@
         >
     <Window.Resources>
         <conveters:PersonTypeToVisibilityConverter x:Key="FinantialCommitteeToVisibilityConverter" TargetType="FinantialCommitteeMember"/>
+        <conveters:ProjectStateToVisibilityConverter x:Key="ArchivedProjectConverter" State="Archived"/>
     </Window.Resources>
 
     <Grid>
@@ -131,27 +132,50 @@
                     </StackPanel>
 
 
-                    <Button Content="Add new Project" 
-                            Command="{Binding CreateProjectCommand}"
+                    <Button Content="Create opened project" 
+                            Command="{Binding CreateOpenProjectCommand}"
                             Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                    
+
+                    <Button Content="Create archived project" 
+                            Command="{Binding CreateArchivedProjectCommand}"
+                            Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+
                     <StackPanel
                         Orientation="Horizontal"
                             Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}"
                         >
-                        <Button Content="Update Project" 
-                            Command="{Binding UpdateProjectCommand}"
+
+
+                        <StackPanel 
+                            Visibility="{Binding Project.State, Converter={StaticResource ArchivedProjectConverter}}">
+                            <Button
+                            Content="Open"
+                            Command="{Binding OpenProjectCommand}"
                             />
-                        <Button
-                            Content="Archive"
-                            Command="{Binding ArchiveProjectCommand}"
+                        </StackPanel>
+
+                        <StackPanel Visibility="{Binding Project.State, Converter={StaticResource ArchivedProjectConverter}, ConverterParameter=not}">
+
+                            <Button Content="Update" 
+                                Command="{Binding UpdateProjectCommand}"
                             />
-                        <Button
-                            Content="Suspend"
-                            Command="{Binding SuspendProjectCommand}"
+
+                            <Button
+                                Content="Archive"
+                                Command="{Binding ArchiveProjectCommand}"
                             />
+
+                            <Button
+                                Content="Suspend"
+                                Command="{Binding SuspendProjectCommand}"
+                            />
+
+                        </StackPanel>
+
+
                     </StackPanel>
-                 
+
                 </StackPanel>
             </Grid>
         </ScrollViewer>

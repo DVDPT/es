@@ -18,7 +18,7 @@ namespace SGPF.DataController
             _onAddDispatchMessageFormat = "dispatch: {0}",
             _onAssignedFinancialManagerMessageFormat = "financial manager: [{0}] {1}",
             _onTechnicalOpinionMessageFormat = "tech. opinion: {0} - {1}",
-            _onSuspensionStateChangeMessageFormat = "suspended: {1}";
+            _onSuspensionStateChangeMessageFormat = "suspended: {0}";
 
         private readonly ISGPFDatabase _db;
 
@@ -34,6 +34,19 @@ namespace SGPF.DataController
             await _db.Projects.Add(project);
 
             AddToHistory(person, project, _onProjectCreatedMessageFormat, project.Id);
+        }
+
+        public async Task Open(BasePerson person, Project project)
+        {
+            SetState(person, project, ProjectState.Open);
+        }
+
+        public async Task Update(BasePerson person, Project project)
+        {
+            if (project.IsEditable == false)
+                throw new UpdateProjectException();
+
+            await _db.Projects.Update(project);
         }
 
         public async Task<Data.Project> GetById(BasePerson person, int id)
@@ -90,7 +103,7 @@ namespace SGPF.DataController
                     {
                         SetState(person, project, ProjectState.InPayment);
                     }
-                    else 
+                    else
                     {
                         project.Manager = manager;
                         AddToHistory(person, project, _onAssignedFinancialManagerMessageFormat, project.Manager.Id, project.Manager.Name);
@@ -111,17 +124,18 @@ namespace SGPF.DataController
 
         public async Task Suspend(BasePerson person, Data.Project project)
         {
-            if (project.IsSuspended)
+            if (project.IsSuspended || project.State == ProjectState.Undefined)
             {
                 throw new SuspendedProjectException(project);
             }
 
             if (person is Technician || person is FinancialManager || person is FinantialCommitteeMember)
             {
+                project.PrevSuspendedState = project.State;
                 project.SuspendedBy = person;
                 SetSuspensionState(person, project, true);
             }
-           
+
         }
 
         public async Task Resume(BasePerson person, Data.Project project)
@@ -134,6 +148,8 @@ namespace SGPF.DataController
                 throw new InvalidResumeOperationException(project.SuspendedBy);
             }
 
+            project.State = project.PrevSuspendedState;
+            project.SuspendedBy = null;
             SetSuspensionState(person, project, false);
         }
 

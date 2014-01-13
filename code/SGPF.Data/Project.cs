@@ -47,10 +47,14 @@ namespace SGPF.Data
         private Promoter _promoter = null;
 
 
+        public const string IsSuspendedPropertyName = "IsSuspended";
         public bool IsSuspended
         {
             get { return SuspendedBy != null; }
         }
+
+        public const string IsEditablePropertyName = "IsSuspended";
+        public bool IsEditable { get { return State == ProjectState.AwaitingDispatch || State == ProjectState.Open; } }
 
         /// <summary>
         /// The <see cref="Id" /> property's name.
@@ -257,9 +261,14 @@ namespace SGPF.Data
                 {
                     return;
                 }
-
+                var canEdit = IsEditable;
                 RaisePropertyChanging(StatePropertyName);
                 _state = value;
+
+
+                if(IsEditable != canEdit)
+                    RaisePropertyChanged(IsEditablePropertyName)
+                        ;
                 RaisePropertyChanged(StatePropertyName);
             }
         }
@@ -449,10 +458,14 @@ namespace SGPF.Data
                 }
 
                 RaisePropertyChanging(SuspendedByPropertyName);
+                RaisePropertyChanging(IsSuspendedPropertyName);
                 _suspendedByPerson = value;
                 RaisePropertyChanged(SuspendedByPropertyName);
+                RaisePropertyChanged(IsSuspendedPropertyName);
             }
         }
+
+        public ProjectState PrevSuspendedState { get; set; }
 
         /// <summary>
         /// The <see cref="Manager" /> property's name.

@@ -11,6 +11,9 @@ namespace SGPF.DataController
     {
         Task Create(BasePerson person, Project project);
 
+        Task Open(BasePerson person, Project project);
+        Task Update(BasePerson person, Project project);
+
         Task<Project> GetById(BasePerson person, int id);
 
         Task SendToDispatchQueue(BasePerson person, Project project);

@@ -153,38 +153,61 @@ namespace SGPF.ViewModel
             _database = database;
 
 
-            CreateProjectCommand = new RelayCommand(CreateProjectCommandImpl);
+            CreateArchivedProjectCommand = new RelayCommand(() => CreateProjectCommandImpl(ProjectState.Archived));
+            CreateOpenProjectCommand = new RelayCommand(() => CreateProjectCommandImpl(ProjectState.Open));
             UpdateProjectCommand = new RelayCommand(UpdateProjectCommandImpl);
             SuspendProjectCommand = new RelayCommand(SuspendProjectCommandImpl);
             ArchiveProjectCommand = new RelayCommand(ArchiveProjectCommandImpl);
+            OpenProjectCommand = new RelayCommand(OpenProjectCommandImpl);
             _messenger.Register<ProjectMessage>(this, OnNewMessage);
 
 
+        }
+
+        private void OpenProjectCommandImpl()
+        {
+            SafeRun(async () =>
+            {
+                await _controller.Open(User, Project);
+            });
         }
 
         private void ArchiveProjectCommandImpl()
         {
             SafeRun(async () =>
             {
+                ThrowIfSuspended();
                 await _controller.Archive(User, Project);
             });
         }
 
         private void SuspendProjectCommandImpl()
         {
-            throw new NotImplementedException();
+            SafeRun(async () =>
+            {
+                await _controller.Suspend(User, Project);
+            });
         }
 
         private void UpdateProjectCommandImpl()
         {
+
+            SafeRun(async () =>
+            {
+                ThrowIfSuspended();
+                await _controller.Update(User, Project);
+            });
+        }
+
+        private void ThrowIfSuspended()
+        {
             if (Project.IsSuspended)
             {
-                MessageBox.Show("Can't update a project that is suspended");
-                return;
+                throw new Exception("Can't update a project that is suspended");
             }
         }
 
-        private void CreateProjectCommandImpl()
+        private void CreateProjectCommandImpl(ProjectState initialState)
         {
 
             if (Project.IsValid() == false)
@@ -197,15 +220,24 @@ namespace SGPF.ViewModel
             {
                 await _controller.Create(User, Project);
                 MessageBox.Show("Project Created");
+
+                if (initialState == ProjectState.Open)
+                    await _controller.Open(User, Project);
+                else
+                    await _controller.Archive(User, Project);
+
                 IsNew = false;
+
             });
 
         }
 
-        public ICommand CreateProjectCommand { get; set; }
-        public ICommand UpdateProjectCommand { get; set; }
-        public ICommand SuspendProjectCommand { get; set; }
-        public ICommand ArchiveProjectCommand { get; set; }
+        public ICommand UpdateProjectCommand { get; private set; }
+        public ICommand SuspendProjectCommand { get; private set; }
+        public ICommand ArchiveProjectCommand { get; private set; }
+        public ICommand OpenProjectCommand { get; private set; }
+        public ICommand CreateArchivedProjectCommand { get; private set; }
+        public ICommand CreateOpenProjectCommand { get; private set; }
 
         private async void OnNewMessage(ProjectMessage obj)
         {

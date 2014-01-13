@@ -11,6 +11,9 @@ namespace SGPF.DataController.Exceptions
         public const string 
             PersonNotFoundExceptionFormat = "The person with id \"{0}\" coudn't be found",
             InvalidResumeOperationFormat = "This project have to be resumed by {0}({1})",
-            SuspendedProjectExceptionFormat = "Project {0} it's suspended";
+            SuspendedProjectExceptionFormat = "Project {0} it's suspended",
+            UpdateProjectException = "A project can only be updated when it's on the open or awaiting dispatch states."
+            ;
+
     }
 }

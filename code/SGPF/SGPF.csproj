@@ -68,6 +68,7 @@
     <Compile Include="Conveters\BoolToVisibilityConverter.cs" />
     <Compile Include="Conveters\NullToVisibilityConverter.cs" />
     <Compile Include="Conveters\PersonTypeToVisibilityConverter.cs" />
+    <Compile Include="Conveters\ProjectStateToVisibilityConverter.cs" />
     <Compile Include="LoginPopup.xaml.cs">
       <DependentUpon>LoginPopup.xaml</DependentUpon>
     </Compile>
