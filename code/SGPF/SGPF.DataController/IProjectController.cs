@@ -24,7 +24,5 @@ namespace SGPF.DataController
         Task Suspend(BasePerson person, Project project);
 
         Task Resume(BasePerson person, Project project);
-
-        Task<IEnumerable<Promoter>> GetPromoters();
     }
 }
