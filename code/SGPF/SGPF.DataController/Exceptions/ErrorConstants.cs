@@ -13,6 +13,7 @@ namespace SGPF.DataController.Exceptions
             InvalidResumeOperationFormat = "This project have to be resumed by {0}({1})",
             SuspendedProjectExceptionFormat = "Project {0} it's suspended",
             UpdateProjectException = "A project can only be updated when it's on the open or awaiting dispatch states.",
+            RejectedProjectExceptionFormat = "Project with id {0} is already rejected",
             InvalidStateException = "This action cannot be done while project state is {0}."
             ;
 

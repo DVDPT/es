@@ -18,7 +18,8 @@ namespace SGPF.DataController
             _onAddDispatchMessageFormat = "dispatch: {0}",
             _onAssignedFinancialManagerMessageFormat = "financial manager: [{0}] {1}",
             _onTechnicalOpinionMessageFormat = "tech. opinion: {0} - {1}",
-            _onSuspensionStateChangeMessageFormat = "suspended: {0}";
+            _onSuspensionStateChangeMessageFormat = "suspended: {0}",
+            _onProjectUpdateMessageFormat = "update project";
 
         private readonly ISGPFDatabase _db;
 
@@ -47,6 +48,7 @@ namespace SGPF.DataController
                 throw new UpdateProjectException();
 
             await _db.Projects.Update(project);
+            AddToHistory(person, project, _onProjectUpdateMessageFormat);
         }
 
         public async Task<Data.Project> GetById(BasePerson person, int id)
@@ -58,6 +60,9 @@ namespace SGPF.DataController
 
         public async Task SendToDispatchQueue(BasePerson person, Data.Project project)
         {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+            
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
@@ -72,31 +77,34 @@ namespace SGPF.DataController
             SetState(person, project, ProjectState.Archived);
         }
 
-        public async Task AddTechnicalOpinion(BasePerson person, Data.Project project, string comment, Data.TechnicalOpinion opinion)
+        public async Task AddTechnicalOpinion(BasePerson manager, Data.Project project, string comment, Data.TechnicalOpinion opinion)
         {
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
-            AddToHistory(person, project, _onTechnicalOpinionMessageFormat, opinion.ToString(), comment);
+            AddToHistory(manager, project, _onTechnicalOpinionMessageFormat, opinion.ToString(), comment);
 
             if (opinion == TechnicalOpinion.Reject)
             {
-                await Archive(person, project);
+                await Archive(manager, project);
                 return;
             }
 
-            await SendToDispatchQueue(person, project);
+            await SendToDispatchQueue(manager, project);
         }
 
-        public async Task AddCommiteeDispatch(BasePerson person, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
+        public async Task AddCommiteeDispatch(BasePerson member, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
         {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+            
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
             if (project.State != ProjectState.AwaitingDispatch)
                 throw new InvalidStateException(project.State);
-            
-            AddToHistory(person, project, _onAddDispatchMessageFormat, opinion.ToString());
+
+            AddToHistory(member, project, _onAddDispatchMessageFormat, opinion.ToString());
 
             switch (opinion)
             {
@@ -104,34 +112,35 @@ namespace SGPF.DataController
 
                     if (manager == null)
                     {
-                        SetState(person, project, ProjectState.InPayment);
+                        SetState(member, project, ProjectState.InPayment);
                     }
                     else
                     {
                         project.Manager = manager;
-                        AddToHistory(person, project, _onAssignedFinancialManagerMessageFormat, project.Manager.Id, project.Manager.Name);
+                        AddToHistory(member, project, _onAssignedFinancialManagerMessageFormat, project.Manager.Id, project.Manager.Name);
                     }
 
                     break;
 
                 case TechnicalOpinion.Reject:
-                    SetState(person, project, ProjectState.Rejected);
+                    SetState(member, project, ProjectState.Rejected);
                     break;
 
                 case TechnicalOpinion.ConvertToLoan:
                     project.Type = ProjectType.Loan;
-                    AddToHistory(person, project, "converted to loan");
+                    AddToHistory(member, project, "converted to loan");
                     break;
             }
         }
 
         public async Task Suspend(BasePerson person, Data.Project project)
         {
+            if (project.State == ProjectState.Rejected) 
+                throw new RejectedProjectException(project);
+            
             if (project.IsSuspended || project.State == ProjectState.Undefined)
-            {
                 throw new SuspendedProjectException(project);
-            }
-
+            
             if (person is Technician || person is FinancialManager || person is FinantialCommitteeMember)
             {
                 project.PrevSuspendedState = project.State;
@@ -142,6 +151,9 @@ namespace SGPF.DataController
 
         public async Task Resume(BasePerson person, Data.Project project)
         {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+            
             ///
             /// When a project is suspended it have to be resumed by the user that suspend it.
             ///
@@ -190,6 +202,18 @@ namespace SGPF.DataController
             }
 
             return Enumerable.Empty<Project>();
+        }
+
+
+        public async Task Reject(BasePerson member, Project project)
+        {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+
+            if (project.IsSuspended || project.State == ProjectState.Undefined)
+                throw new SuspendedProjectException(project);
+
+            SetState(member, project, ProjectState.Rejected);
         }
     }
 }
