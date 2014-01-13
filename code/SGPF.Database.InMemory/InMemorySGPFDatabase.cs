@@ -69,6 +69,26 @@ namespace SGPF.Database.InMemory
                 Nif = "nif12"
 
             });
+
+            _projects.Add(new Project { 
+                
+                Promoter = _promoters.First(),
+                Id = GenerateProjectId(),
+                Type = ProjectType.Incentive,
+                CreatedTime = new DateTime(2012, 12, 20),
+                Description = "This is a description",
+                State = ProjectState.AwaitingDispatch
+            });
+
+            _projects.Add(new Project
+            {
+                Promoter = _promoters.Last(),
+                Id = GenerateProjectId(),
+                Type = ProjectType.Incentive,
+                CreatedTime = new DateTime(2010, 5, 3),
+                Description = "My project description",
+                State = ProjectState.Archived
+            });
         }
 
         public int GenerateProjectId()
