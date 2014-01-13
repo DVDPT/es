@@ -93,6 +93,9 @@ namespace SGPF.DataController
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
+            if (project.State != ProjectState.AwaitingDispatch)
+                throw new InvalidStateException(project.State);
+            
             AddToHistory(person, project, _onAddDispatchMessageFormat, opinion.ToString());
 
             switch (opinion)
@@ -135,7 +138,6 @@ namespace SGPF.DataController
                 project.SuspendedBy = person;
                 SetSuspensionState(person, project, true);
             }
-
         }
 
         public async Task Resume(BasePerson person, Data.Project project)
@@ -172,6 +174,22 @@ namespace SGPF.DataController
                 Date = System.DateTime.Now,
                 Description = String.Format("[{0}] {1} - {2}", person.Id, person.Name, String.Format(template, parameters))
             });
+        }
+
+
+        public async Task<IEnumerable<Project>> GetProjectsFor(BasePerson person)
+        {
+            if(typeof(FinancialManager).Equals(person.GetType())) 
+            {
+                return (await _db.Projects.All()).Where(p => person.Equals(p.Manager));
+            }
+            
+            if(typeof(FinantialCommitteeMember).Equals(person.GetType())) 
+            {
+                return (await _db.Projects.All()).Where(p => p.State.Equals(ProjectState.AwaitingDispatch));
+            }
+
+            return Enumerable.Empty<Project>();
         }
     }
 }
