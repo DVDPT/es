@@ -159,9 +159,18 @@ namespace SGPF.ViewModel
             SuspendProjectCommand = new RelayCommand(SuspendProjectCommandImpl);
             ArchiveProjectCommand = new RelayCommand(ArchiveProjectCommandImpl);
             OpenProjectCommand = new RelayCommand(OpenProjectCommandImpl);
+            ResumeProjectCommand = new RelayCommand(ResumeProjectCommandImpl);
             _messenger.Register<ProjectMessage>(this, OnNewMessage);
 
 
+        }
+
+        private void ResumeProjectCommandImpl()
+        {
+            SafeRun(async () =>
+            {
+                await _controller.Resume(User, Project);
+            });
         }
 
         private void OpenProjectCommandImpl()
@@ -238,6 +247,7 @@ namespace SGPF.ViewModel
         public ICommand OpenProjectCommand { get; private set; }
         public ICommand CreateArchivedProjectCommand { get; private set; }
         public ICommand CreateOpenProjectCommand { get; private set; }
+        public ICommand ResumeProjectCommand { get; private set; }
 
         private async void OnNewMessage(ProjectMessage obj)
         {

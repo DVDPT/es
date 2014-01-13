@@ -155,6 +155,8 @@
                             />
                         </StackPanel>
 
+                        <StackPanel Visibility="{Binding Project.IsSuspended,ConverterParameter=not, Converter={StaticResource BoolToVisibilityConverter}}">
+                            
                         <StackPanel Visibility="{Binding Project.State, Converter={StaticResource ArchivedProjectConverter}, ConverterParameter=not}">
 
                             <Button Content="Update" 
@@ -173,7 +175,14 @@
 
                         </StackPanel>
 
+                        </StackPanel>
 
+                        <StackPanel Visibility="{Binding Project.IsSuspended, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button
+                            Content="Resume"
+                            Command="{Binding ResumeProjectCommand}"
+                            />
+                        </StackPanel>
                     </StackPanel>
 
                 </StackPanel>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.Remoting;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -58,6 +59,37 @@ namespace SGPF.ViewModel
         }
 
         /// <summary>
+        /// The <see cref="Projects" /> property's name.
+        /// </summary>
+        public const string ProjectsPropertyName = "Projects";
+
+        private IEnumerable<Project> _projects;
+
+        /// <summary>
+        /// Sets and gets the Projects property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public IEnumerable<Project> Projects
+        {
+            get
+            {
+                return _projects;
+            }
+
+            set
+            {
+                if (_projects == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(ProjectsPropertyName);
+                _projects = value;
+                RaisePropertyChanged(ProjectsPropertyName);
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel(IMessenger messenger, IAuthenticationService authenticationService)
@@ -81,8 +113,13 @@ namespace SGPF.ViewModel
             SafeRun(async () =>
             {
                 await _authenticationService.EndSession(CurrentSession);
-                CurrentSession = null;
+                ClearCurrentSession();
             });
+        }
+
+        private void ClearCurrentSession()
+        {
+            CurrentSession = null;
         }
 
         public ICommand LogoutCommand { get; private set; }
