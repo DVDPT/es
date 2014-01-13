@@ -18,7 +18,8 @@ namespace SGPF.DataController
             _onAddDispatchMessageFormat = "dispatch: {0}",
             _onAssignedFinancialManagerMessageFormat = "financial manager: [{0}] {1}",
             _onTechnicalOpinionMessageFormat = "tech. opinion: {0} - {1}",
-            _onSuspensionStateChangeMessageFormat = "suspended: {0}";
+            _onSuspensionStateChangeMessageFormat = "suspended: {0}",
+            _onProjectUpdateMessageFormat = "update project";
 
         private readonly ISGPFDatabase _db;
 
@@ -47,6 +48,7 @@ namespace SGPF.DataController
                 throw new UpdateProjectException();
 
             await _db.Projects.Update(project);
+            AddToHistory(person, project, _onProjectUpdateMessageFormat);
         }
 
         public async Task<Data.Project> GetById(BasePerson person, int id)
@@ -58,6 +60,9 @@ namespace SGPF.DataController
 
         public async Task SendToDispatchQueue(BasePerson person, Data.Project project)
         {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+            
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
@@ -90,6 +95,9 @@ namespace SGPF.DataController
 
         public async Task AddCommiteeDispatch(BasePerson person, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
         {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+            
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
 
@@ -127,11 +135,12 @@ namespace SGPF.DataController
 
         public async Task Suspend(BasePerson person, Data.Project project)
         {
+            if (project.State == ProjectState.Rejected) 
+                throw new RejectedProjectException(project);
+            
             if (project.IsSuspended || project.State == ProjectState.Undefined)
-            {
                 throw new SuspendedProjectException(project);
-            }
-
+            
             if (person is Technician || person is FinancialManager || person is FinantialCommitteeMember)
             {
                 project.PrevSuspendedState = project.State;
@@ -142,6 +151,9 @@ namespace SGPF.DataController
 
         public async Task Resume(BasePerson person, Data.Project project)
         {
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+            
             ///
             /// When a project is suspended it have to be resumed by the user that suspend it.
             ///
