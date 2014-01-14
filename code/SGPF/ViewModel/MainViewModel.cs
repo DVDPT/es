@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Remoting;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -7,6 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 using SGPF.Data;
 using SGPF.DataController;
 using SGPF.Messages;
+using SGPF.Model;
 
 namespace SGPF.ViewModel
 {
@@ -26,6 +28,39 @@ namespace SGPF.ViewModel
     {
         private readonly IMessenger _messenger;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IProjectController _controller;
+        private readonly ProjectVizualizer _projHelper;
+
+        /// <summary>
+        /// The <see cref="ProjectId" /> property's name.
+        /// </summary>
+        public const string ProjectIdPropertyName = "ProjectId";
+
+        private int _projId;
+
+        /// <summary>
+        /// Sets and gets the ProjectId property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int ProjectId
+        {
+            get
+            {
+                return _projId;
+            }
+
+            set
+            {
+                if (_projId == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(ProjectIdPropertyName);
+                _projId = value;
+                RaisePropertyChanged(ProjectIdPropertyName);
+            }
+        }
 
         /// <summary>
         /// The <see cref="CurrentSession" /> property's name.
@@ -63,13 +98,13 @@ namespace SGPF.ViewModel
         /// </summary>
         public const string ProjectsPropertyName = "Projects";
 
-        private IEnumerable<Project> _projects;
+        private ObservableCollection<Project> _projects;
 
         /// <summary>
         /// Sets and gets the Projects property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public IEnumerable<Project> Projects
+        public ObservableCollection<Project> Projects
         {
             get
             {
@@ -92,20 +127,49 @@ namespace SGPF.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IMessenger messenger, IAuthenticationService authenticationService)
+        public MainViewModel(IMessenger messenger, IAuthenticationService authenticationService, IProjectController controller, ProjectVizualizer projHelper)
         {
             _messenger = messenger;
             _authenticationService = authenticationService;
+            _controller = controller;
+            _projHelper = projHelper;
             messenger.Register<SessionMessage>(this, OnNewSession);
 
 
             LogoutCommand = new RelayCommand(LogoutCommandImpl);
             NewProjectCommand = new RelayCommand(NewProjectCommandImpl);
+            RefreshCommand = new RelayCommand(RefreshCommandImpl);
+            OpenProjectCommand = new RelayCommand<Project>(OpenProjectCommandImpl);
+            OpenProjectCommandById = new RelayCommand(OpenProjectCommandByIdImpl);
+        }
+
+        private void OpenProjectCommandByIdImpl()
+        {
+            SafeRun(async () =>
+            {
+                var proj = await _controller.GetById(CurrentSession.UserDetails, ProjectId);
+                OpenProjectCommandImpl(proj);
+            });
+        }
+
+        private void OpenProjectCommandImpl(Project p)
+        {
+            _projHelper.OpenProject(p);
+            RefreshCommandImpl();
+        }
+
+        private void RefreshCommandImpl()
+        {
+            SafeRun(async () =>
+            {
+                Projects = new ObservableCollection<Project>(await _controller.GetProjectsFor(CurrentSession.UserDetails));
+            });
         }
 
         private void NewProjectCommandImpl()
         {
-            _messenger.Send(new ProjectMessage(CurrentSession.UserDetails));
+            _projHelper.CreateProject();
+            RefreshCommandImpl();
         }
 
         private void LogoutCommandImpl()
@@ -124,17 +188,23 @@ namespace SGPF.ViewModel
 
         public ICommand LogoutCommand { get; private set; }
         public ICommand NewProjectCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
+        public ICommand OpenProjectCommand { get; set; }
+        public ICommand OpenProjectCommandById { get; set; }
+
+
         private void OnNewSession(SessionMessage obj)
         {
             if (obj.Session == null || obj.Session.UserDetails == null || obj.Session == CurrentSession)
                 return;
 
             CurrentSession = obj.Session;
+            RefreshCommandImpl();
 
         }
 
-        
+
     }
 
-    
+
 }

@@ -15,6 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using SGPF.Model;
 
 namespace SGPF.ViewModel
 {
@@ -40,6 +41,11 @@ namespace SGPF.ViewModel
 
             //  Force instance creation
             var xpto = Project;
+
+            //
+            //  Register UI models and controllers
+            //
+            SimpleIoc.Default.Register<ProjectVizualizer>();
 
         }
 

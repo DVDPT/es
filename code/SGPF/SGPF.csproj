@@ -69,6 +69,7 @@
     <Compile Include="Conveters\NullToVisibilityConverter.cs" />
     <Compile Include="Conveters\PersonTypeToVisibilityConverter.cs" />
     <Compile Include="Conveters\ProjectStateToVisibilityConverter.cs" />
+    <Compile Include="Conveters\ProjectTypeToVisibilityConverter.cs" />
     <Compile Include="LoginPopup.xaml.cs">
       <DependentUpon>LoginPopup.xaml</DependentUpon>
     </Compile>
@@ -76,6 +77,7 @@
     <Compile Include="ProjectInfo.xaml.cs">
       <DependentUpon>ProjectInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ProjectVizualizer.cs" />
     <Compile Include="ViewModel\BaseAppViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

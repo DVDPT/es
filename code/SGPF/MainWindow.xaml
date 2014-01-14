@@ -37,13 +37,67 @@
         <TabControl Grid.Row="1">
             <TabItem Header="Technician" 
                      Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource TechnicianToVisibilityConverter}}">
-                <StackPanel>
+                <StackPanel Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource TechnicianToVisibilityConverter}}">
                     <Button
                         Content="Add a Project"
                         Click="OnNewProjectClicked"
                     />
+                    
+                    <TextBlock Text="Project Id"/>
+                    <TextBox Text="{Binding ProjectId, Mode=TwoWay}"/>
+                    <Button Content="Open Project"
+                            Command="{Binding OpenProjectCommandById}"
+                            />
+                    
+                  
                 </StackPanel>
             </TabItem>
+
+            <TabItem Header="Finantial Committee Member"
+                     Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource FinantialCommitteeToVisibilityConverter}}"
+                >
+                <StackPanel>
+
+                    <ListBox 
+                        ItemsSource="{Binding Projects}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnProjectSelected"
+                        >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding State}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding Representer.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Financial Manager"
+                     Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource FinancialManagerToVisibilityConverter}}"
+                     >
+                <StackPanel>
+
+                    <ListBox 
+                        ItemsSource="{Binding Projects}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnProjectSelected"
+                        >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding State}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding Representer.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

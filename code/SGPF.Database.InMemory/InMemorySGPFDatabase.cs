@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,25 @@ namespace SGPF.Database.InMemory
                 Phone = "12"
             });
 
+            _persons.Add(new FinancialManager
+            {
+                Designation = "FinancialManager",
+                Email = "str@sr.srt",
+                Id = "23",
+                Name = "FinancialManager",
+                Phone = "12"
+            });
+
+            _persons.Add(new FinantialCommitteeMember()
+            {
+                Designation = "FinantialCommitteeMember",
+                Email = "str@sr.srt",
+                Id = "34",
+                Name = "FinantialCommitteeMember",
+                Phone = "12"
+            });
+
+
             _promoters.Add(new Promoter
             {
                 Address = "Rua",
@@ -77,7 +97,23 @@ namespace SGPF.Database.InMemory
                 Type = ProjectType.Incentive,
                 CreatedTime = new DateTime(2012, 12, 20),
                 Description = "This is a description",
+                History = new ObservableCollection<ProjectHistory>(),
+                Payments = new ObservableCollection<ProjectPayment>(),
                 State = ProjectState.AwaitingDispatch
+            });
+
+            _projects.Add(new Project
+            {
+                Promoter = _promoters.Last(),
+                Id = GenerateProjectId(),
+                Type = ProjectType.Loan,
+                LoanRate = 0.6,
+                Manager = _persons.OfType<FinancialManager>().FirstOrDefault(),
+                CreatedTime = new DateTime(2010, 5, 3),
+                Description = "My project description",
+                History = new ObservableCollection<ProjectHistory>(),
+                Payments = new ObservableCollection<ProjectPayment>(),
+                State = ProjectState.Archived
             });
 
             _projects.Add(new Project
@@ -87,7 +123,9 @@ namespace SGPF.Database.InMemory
                 Type = ProjectType.Incentive,
                 CreatedTime = new DateTime(2010, 5, 3),
                 Description = "My project description",
-                State = ProjectState.Archived
+                History = new ObservableCollection<ProjectHistory>(),
+                Payments = new ObservableCollection<ProjectPayment>(),
+                State = ProjectState.Open
             });
         }
 

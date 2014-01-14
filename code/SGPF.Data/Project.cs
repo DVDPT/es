@@ -31,7 +31,8 @@ namespace SGPF.Data
         Rejected,
         InPayment,
         Closed,
-        Archived
+        Archived,
+        Completed
     }
 
     public class Project : ObservableObject, IEquatable<Project>

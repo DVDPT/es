@@ -191,14 +191,14 @@ namespace SGPF.DataController
 
         public async Task<IEnumerable<Project>> GetProjectsFor(BasePerson person)
         {
-            if(typeof(FinancialManager).Equals(person.GetType())) 
+            if(typeof(FinancialManager) == person.GetType()) 
             {
                 return (await _db.Projects.All()).Where(p => person.Equals(p.Manager));
             }
             
-            if(typeof(FinantialCommitteeMember).Equals(person.GetType())) 
+            if(typeof(FinantialCommitteeMember) == person.GetType()) 
             {
-                return (await _db.Projects.All()).Where(p => p.State.Equals(ProjectState.AwaitingDispatch));
+                return (await _db.Projects.All()).Where(p => !p.State.Equals(ProjectState.Rejected) || !p.State.Equals(ProjectState.Completed));
             }
 
             return Enumerable.Empty<Project>();

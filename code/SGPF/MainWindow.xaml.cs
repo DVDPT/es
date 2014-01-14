@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SGPF.Data;
 using SGPF.ViewModel;
 
 namespace SGPF
@@ -65,7 +66,20 @@ namespace SGPF
         private void OnNewProjectClicked(object sender, RoutedEventArgs e)
         {
             _mainViewModel.NewProjectCommand.Execute(null);
-            new ProjectInfo().ShowDialog();
         }
+
+        private void OnProjectSelected(object sender, SelectionChangedEventArgs e)
+        {
+            var projectListBox = (ListBox) sender;
+
+            if (projectListBox.SelectedIndex == -1)
+                return;
+
+            var project = projectListBox.SelectedItem as Project;
+            _mainViewModel.OpenProjectCommand.Execute(project);
+            projectListBox.SelectedIndex = -1;
+        }
+
+       
     }
 }

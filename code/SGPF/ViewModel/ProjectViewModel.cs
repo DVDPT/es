@@ -49,32 +49,32 @@ namespace SGPF.ViewModel
         }
 
         /// <summary>
-        /// The <see cref="IsNew" /> property's name.
+        /// The <see cref="CanEdit" /> property's name.
         /// </summary>
-        public const string IsNewPropertyName = "IsNew";
+        public const string IsNewPropertyName = "CanEdit";
 
-        private bool _isNew = false;
+        private bool _canEdit = false;
 
         /// <summary>
-        /// Sets and gets the IsNew property.
+        /// Sets and gets the CanEdit property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public bool IsNew
+        public bool CanEdit
         {
             get
             {
-                return _isNew;
+                return _canEdit;
             }
 
             set
             {
-                if (_isNew == value)
+                if (_canEdit == value)
                 {
                     return;
                 }
 
                 RaisePropertyChanging(IsNewPropertyName);
-                _isNew = value;
+                _canEdit = value;
                 RaisePropertyChanged(IsNewPropertyName);
             }
         }
@@ -160,16 +160,38 @@ namespace SGPF.ViewModel
             ArchiveProjectCommand = new RelayCommand(ArchiveProjectCommandImpl);
             OpenProjectCommand = new RelayCommand(OpenProjectCommandImpl);
             ResumeProjectCommand = new RelayCommand(ResumeProjectCommandImpl);
+            RejectProjectCommand = new RelayCommand(RejectProjectCommandImpl);
+
             _messenger.Register<ProjectMessage>(this, OnNewMessage);
 
 
         }
 
+     
+
+        public ICommand UpdateProjectCommand { get; private set; }
+        public ICommand SuspendProjectCommand { get; private set; }
+        public ICommand ArchiveProjectCommand { get; private set; }
+        public ICommand OpenProjectCommand { get; private set; }
+        public ICommand CreateArchivedProjectCommand { get; private set; }
+        public ICommand CreateOpenProjectCommand { get; private set; }
+        public ICommand ResumeProjectCommand { get; private set; }
+        public ICommand RejectProjectCommand { get; private set; }
+
+        private void RejectProjectCommandImpl()
+        {
+
+            SafeRun(async () =>
+            {
+                await _controller.Reject(User, Project);
+            });
+        }
         private void ResumeProjectCommandImpl()
         {
             SafeRun(async () =>
             {
                 await _controller.Resume(User, Project);
+                CanEdit = Project.IsEditable;
             });
         }
 
@@ -178,6 +200,7 @@ namespace SGPF.ViewModel
             SafeRun(async () =>
             {
                 await _controller.Open(User, Project);
+                CanEdit = Project.IsEditable;
             });
         }
 
@@ -219,14 +242,16 @@ namespace SGPF.ViewModel
         private void CreateProjectCommandImpl(ProjectState initialState)
         {
 
-            if (Project.IsValid() == false)
-            {
-                MessageBox.Show("Please fill out all the project fields correctly.");
-                return;
-            }
+           
 
             SafeRun(async () =>
             {
+                if (Project.IsValid() == false)
+                {
+                    MessageBox.Show("Please fill out all the project fields correctly.");
+                    return;
+                }
+
                 await _controller.Create(User, Project);
                 MessageBox.Show("Project Created");
 
@@ -235,20 +260,13 @@ namespace SGPF.ViewModel
                 else
                     await _controller.Archive(User, Project);
 
-                IsNew = false;
+                CanEdit = false;
 
             });
 
         }
 
-        public ICommand UpdateProjectCommand { get; private set; }
-        public ICommand SuspendProjectCommand { get; private set; }
-        public ICommand ArchiveProjectCommand { get; private set; }
-        public ICommand OpenProjectCommand { get; private set; }
-        public ICommand CreateArchivedProjectCommand { get; private set; }
-        public ICommand CreateOpenProjectCommand { get; private set; }
-        public ICommand ResumeProjectCommand { get; private set; }
-
+        
         private async void OnNewMessage(ProjectMessage obj)
         {
             User = obj.UserDetails;
@@ -266,6 +284,7 @@ namespace SGPF.ViewModel
                 FillManagers();
 
             Project = obj.Project;
+            CanEdit = Project.IsEditable;
 
 
         }
@@ -280,7 +299,7 @@ namespace SGPF.ViewModel
 
         private async Task NewProject(Project project)
         {
-            IsNew = true;
+            CanEdit = true;
             project.CreatedTime = DateTime.Now;
             project.Promoter = new Promoter();
             project.Representer = new Person();

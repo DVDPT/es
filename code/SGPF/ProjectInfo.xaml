@@ -2,13 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conveters="clr-namespace:SGPF.Conveters"
-        Title="Project Info" Height="300" Width="300"
+        Title="Project Info" Height="600" Width="600"
         
         DataContext="{Binding Project ,Source={StaticResource Locator}}"
         >
     <Window.Resources>
         <conveters:PersonTypeToVisibilityConverter x:Key="FinantialCommitteeToVisibilityConverter" TargetType="FinantialCommitteeMember"/>
+        <conveters:PersonTypeToVisibilityConverter x:Key="FinantialManagerToVisibilityConverter" TargetType="FinancialManager"/>
         <conveters:ProjectStateToVisibilityConverter x:Key="ArchivedProjectConverter" State="Archived"/>
+        <conveters:LoadProjectToVisibilityConverter x:Key="LoadProjectToVisibilityConverter" />
     </Window.Resources>
 
     <Grid>
@@ -20,7 +22,7 @@
                     <TextBlock Text="Created Time"/>
                     <TextBlock Text="{Binding Project.CreatedTime}"/>
 
-                    <StackPanel Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}">
+                    <StackPanel Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}">
                         <TextBlock Text="State"/>
                         <TextBlock Text="{Binding Project.State}"/>
                     </StackPanel>
@@ -28,19 +30,27 @@
 
 
                     <TextBlock Text="Account Id"/>
-                    <TextBox Text="{Binding Project.AccountId}" IsEnabled="{Binding IsNew}"/>
+                    <TextBox Text="{Binding Project.AccountId}" IsEnabled="{Binding CanEdit}"/>
 
                     <TextBlock Text="Amount"/>
-                    <TextBox Text="{Binding Project.Amount}" IsEnabled="{Binding IsNew}"/>
+                    <TextBox Text="{Binding Project.Amount}" IsEnabled="{Binding CanEdit}"/>
+                    
+                    <StackPanel 
+                        Visibility="{Binding Project.Type, Converter={StaticResource LoadProjectToVisibilityConverter}}"
+                        >
+                        <TextBlock Text="Loan Rate"/>
+                        <TextBox Text="{Binding Project.LoanRate}" IsEnabled="{Binding CanEdit}" />
+                    </StackPanel>
+                    
 
                     <TextBlock Text="Description"/>
-                    <TextBox Text="{Binding Project.Description}" TextWrapping="Wrap" IsEnabled="{Binding IsNew}"/>
+                    <TextBox Text="{Binding Project.Description}" TextWrapping="Wrap" IsEnabled="{Binding CanEdit}"/>
 
                     <TextBlock Text="Execution Date"/>
-                    <DatePicker SelectedDate="{Binding Project.ExecutionDate, Mode=TwoWay}" IsEnabled="{Binding IsNew}"/>
+                    <DatePicker SelectedDate="{Binding Project.ExecutionDate, Mode=TwoWay}" IsEnabled="{Binding CanEdit}"/>
 
 
-                    <StackPanel Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}">
+                    <StackPanel Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}">
                         <TextBlock Text="Loan Rate"/>
                         <TextBlock Text="{Binding Project.LoanRate}"/>
                         <TextBlock Text="Payments"/>
@@ -84,8 +94,13 @@
                         </ListBox>
                     </StackPanel>
 
+                    <StackPanel Visibility="{Binding User, Converter={StaticResource FinantialManagerToVisibilityConverter}}">
+                        <TextBlock Text="Finantial Report"/>
+                        <TextBox Text="{Binding Project}"/>
+                    </StackPanel>
+
                     <StackPanel
-                        Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}}"
                         >
                         <GroupBox Header="Promoter">
                             <StackPanel>
@@ -99,13 +114,13 @@
                         </GroupBox>
                     </StackPanel>
 
-                    <StackPanel Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}">
+                    <StackPanel Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}">
                         <TextBlock Text="Promoter"/>
                         <TextBlock Text="{Binding Project.Promoter.Nif}" />
                     </StackPanel>
 
                     <StackPanel
-                        Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}}"
                       
                         >
                         <GroupBox Header="Representer">
@@ -125,7 +140,7 @@
                     </StackPanel>
 
                     <StackPanel
-                        Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}"
+                        Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}"
                         >
                         <TextBlock Text="Responsible"/>
                         <TextBlock Text="{Binding Project.Representer.Designation}"/>
@@ -134,16 +149,16 @@
 
                     <Button Content="Create opened project" 
                             Command="{Binding CreateOpenProjectCommand}"
-                            Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
                     <Button Content="Create archived project" 
                             Command="{Binding CreateArchivedProjectCommand}"
-                            Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
 
                     <StackPanel
                         Orientation="Horizontal"
-                            Visibility="{Binding IsNew, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}"
+                            Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=not}"
                         >
 
 
