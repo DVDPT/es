@@ -22,14 +22,16 @@ namespace SGPF.DataController
 
         Task Reject(BasePerson member, Project project);
 
-        Task AddTechnicalOpinion(BasePerson manager, Project project, String comment, TechnicalOpinion opinion);
+        Task AddTechnicalOpinion(BasePerson manager, Project project, ProjectTechnicalDispatch opinion);
 
-        Task AddCommiteeDispatch(BasePerson member, Project project, TechnicalOpinion opinion, FinancialManager manager = null);
+        Task ApproveProject(BasePerson member, Project project);
 
         Task Suspend(BasePerson person, Project project);
 
         Task Resume(BasePerson person, Project project);
 
         Task<IEnumerable<Project>> GetProjectsFor(BasePerson person);
+
+        Task AddPayment(BasePerson person, Project project, ProjectPayment payment);
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Exceptions\InvalidStateException.cs" />
     <Compile Include="Exceptions\RejectedProjectException.cs" />
     <Compile Include="Exceptions\SuspendedProjectException.cs" />
+    <Compile Include="Exceptions\TecnicalDispatchException.cs" />
     <Compile Include="Exceptions\UpdateProjectException.cs" />
     <Compile Include="IProjectController.cs" />
     <Compile Include="ProjectController.cs" />

@@ -19,6 +19,7 @@ namespace SGPF.DataController
             _onAssignedFinancialManagerMessageFormat = "financial manager: [{0}] {1}",
             _onTechnicalOpinionMessageFormat = "tech. opinion: {0} - {1}",
             _onSuspensionStateChangeMessageFormat = "suspended: {0}",
+            _paymentMessageFormat = "payment: {0}, value{0}",
             _onProjectUpdateMessageFormat = "update project";
 
         private readonly ISGPFDatabase _db;
@@ -44,6 +45,8 @@ namespace SGPF.DataController
 
         public async Task Update(BasePerson person, Project project)
         {
+            EnsurePreConditions(project);
+
             if (project.IsEditable == false)
                 throw new UpdateProjectException();
 
@@ -60,87 +63,74 @@ namespace SGPF.DataController
 
         public async Task SendToDispatchQueue(BasePerson person, Data.Project project)
         {
-            if (project.State == ProjectState.Rejected)
-                throw new RejectedProjectException(project);
-            
-            if (project.IsSuspended)
-                throw new SuspendedProjectException(project);
+            EnsurePreConditions(project);
+
 
             SetState(person, project, ProjectState.AwaitingDispatch);
         }
 
         public async Task Archive(BasePerson person, Data.Project project)
         {
-            if (project.IsSuspended)
-                throw new SuspendedProjectException(project);
+            EnsurePreConditions(project);
+
 
             SetState(person, project, ProjectState.Archived);
         }
 
-        public async Task AddTechnicalOpinion(BasePerson manager, Data.Project project, string comment, Data.TechnicalOpinion opinion)
+        public async Task AddTechnicalOpinion(BasePerson manager, Data.Project project, ProjectTechnicalDispatch opinion)
         {
-            if (project.IsSuspended)
-                throw new SuspendedProjectException(project);
+            EnsurePreConditions(project);
 
-            AddToHistory(manager, project, _onTechnicalOpinionMessageFormat, opinion.ToString(), comment);
+            if (opinion == null || opinion.Opinion == TechnicalOpinion.Undefined)
+                throw new TecnicalDispatchException();
 
-            if (opinion == TechnicalOpinion.Reject)
-            {
-                await Archive(manager, project);
-                return;
-            }
+            AddToHistory(manager, project, opinion.ToString());
+
+            project.TechnicalDispatch = opinion;
 
             await SendToDispatchQueue(manager, project);
         }
 
-        public async Task AddCommiteeDispatch(BasePerson member, Data.Project project, Data.TechnicalOpinion opinion, FinancialManager manager = null)
+        public async Task ApproveProject(BasePerson member, Data.Project project)
         {
-            if (project.State == ProjectState.Rejected)
-                throw new RejectedProjectException(project);
-            
-            if (project.IsSuspended)
-                throw new SuspendedProjectException(project);
+            EnsurePreConditions(project);
 
             if (project.State != ProjectState.AwaitingDispatch)
                 throw new InvalidStateException(project.State);
 
-            AddToHistory(member, project, _onAddDispatchMessageFormat, opinion.ToString());
+            AddToHistory(member, project, _onAddDispatchMessageFormat, "approve");
 
-            switch (opinion)
-            {
-                case TechnicalOpinion.Approve:
+            SetState(member, project, ProjectState.InPayment);
 
-                    if (manager == null)
-                    {
-                        SetState(member, project, ProjectState.InPayment);
-                    }
-                    else
-                    {
-                        project.Manager = manager;
-                        AddToHistory(member, project, _onAssignedFinancialManagerMessageFormat, project.Manager.Id, project.Manager.Name);
-                    }
+            AddToHistory(member, project, _onAssignedFinancialManagerMessageFormat, project.Manager.Id, project.Manager.Name);
 
-                    break;
 
-                case TechnicalOpinion.Reject:
-                    SetState(member, project, ProjectState.Rejected);
-                    break;
+        }
 
-                case TechnicalOpinion.ConvertToLoan:
-                    project.Type = ProjectType.Loan;
-                    AddToHistory(member, project, "converted to loan");
-                    break;
-            }
+        private static void EnsurePreConditions(Project project)
+        {
+
+            if (project.State == ProjectState.Rejected)
+                throw new RejectedProjectException(project);
+
+            if (project.IsSuspended)
+                throw new SuspendedProjectException(project);
+
+            if(project.IsEditable == false)
+                throw new UpdateProjectException();
+           
         }
 
         public async Task Suspend(BasePerson person, Data.Project project)
         {
-            if (project.State == ProjectState.Rejected) 
+
+            if (project.State == ProjectState.Rejected)
                 throw new RejectedProjectException(project);
-            
-            if (project.IsSuspended || project.State == ProjectState.Undefined)
+
+            if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
-            
+
+
             if (person is Technician || person is FinancialManager || person is FinantialCommitteeMember)
             {
                 project.PrevSuspendedState = project.State;
@@ -151,13 +141,11 @@ namespace SGPF.DataController
 
         public async Task Resume(BasePerson person, Data.Project project)
         {
-            if (project.State == ProjectState.Rejected)
-                throw new RejectedProjectException(project);
             
             ///
             /// When a project is suspended it have to be resumed by the user that suspend it.
             ///
-            if (project.IsSuspended && !person.Equals(project.SuspendedBy))
+            if (project.IsSuspended == false || !person.Equals(project.SuspendedBy))
             {
                 throw new InvalidResumeOperationException(project.SuspendedBy);
             }
@@ -184,19 +172,19 @@ namespace SGPF.DataController
             {
                 ProjectId = project.Id,
                 Date = System.DateTime.Now,
-                Description = String.Format("[{0}] {1} - {2}", person.Id, person.Name, String.Format(template, parameters))
+                Description = String.Format("[{0}] {1} - {2}", person.Id, person.Name, parameters.Length == 0 ? template : String.Format(template, parameters))
             });
         }
 
 
         public async Task<IEnumerable<Project>> GetProjectsFor(BasePerson person)
         {
-            if(typeof(FinancialManager) == person.GetType()) 
+            if (typeof(FinancialManager) == person.GetType())
             {
                 return (await _db.Projects.All()).Where(p => person.Equals(p.Manager));
             }
-            
-            if(typeof(FinantialCommitteeMember) == person.GetType()) 
+
+            if (typeof(FinantialCommitteeMember) == person.GetType())
             {
                 return (await _db.Projects.All()).Where(p => !p.State.Equals(ProjectState.Rejected) || !p.State.Equals(ProjectState.Completed));
             }
@@ -204,14 +192,20 @@ namespace SGPF.DataController
             return Enumerable.Empty<Project>();
         }
 
+        public async Task AddPayment(BasePerson person, Project project, ProjectPayment payment)
+        {
+            payment.ProjectId = project.Id;
+            project.Payments.Add(payment);
+            AddToHistory(person, project, _paymentMessageFormat, payment.PaymentDate, payment.Amount);
+        }
+
 
         public async Task Reject(BasePerson member, Project project)
         {
-            if (project.State == ProjectState.Rejected)
-                throw new RejectedProjectException(project);
+            EnsurePreConditions(project);
 
-            if (project.IsSuspended || project.State == ProjectState.Undefined)
-                throw new SuspendedProjectException(project);
+            if(project.State == ProjectState.InPayment)
+                throw new UpdateProjectException();
 
             SetState(member, project, ProjectState.Rejected);
         }

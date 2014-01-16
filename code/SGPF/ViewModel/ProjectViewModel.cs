@@ -141,6 +141,36 @@ namespace SGPF.ViewModel
             }
         }
 
+        /// <summary>
+        /// The <see cref="Payment" /> property's name.
+        /// </summary>
+        public const string PaymentPropertyName = "Payment";
+
+        private ProjectPayment _payment;
+
+        /// <summary>
+        /// Sets and gets the Payment property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ProjectPayment Payment
+        {
+            get
+            {
+                return _payment;
+            }
+
+            set
+            {
+                if (_payment == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(PaymentPropertyName);
+                _payment = value;
+                RaisePropertyChanged(PaymentPropertyName);
+            }
+        }
 
         private readonly IMessenger _messenger;
         private readonly IProjectController _controller;
@@ -161,13 +191,16 @@ namespace SGPF.ViewModel
             OpenProjectCommand = new RelayCommand(OpenProjectCommandImpl);
             ResumeProjectCommand = new RelayCommand(ResumeProjectCommandImpl);
             RejectProjectCommand = new RelayCommand(RejectProjectCommandImpl);
+            SetTechnicalOpinionCommand = new RelayCommand(SetTechnicalOpinionImpl);
+            AddPaymentCommand = new RelayCommand(AddPaymentCommandImpl);
+            ApproveProjectCommand = new RelayCommand(ApproveProjectCommandImpl);
 
             _messenger.Register<ProjectMessage>(this, OnNewMessage);
 
 
         }
 
-     
+       
 
         public ICommand UpdateProjectCommand { get; private set; }
         public ICommand SuspendProjectCommand { get; private set; }
@@ -177,6 +210,33 @@ namespace SGPF.ViewModel
         public ICommand CreateOpenProjectCommand { get; private set; }
         public ICommand ResumeProjectCommand { get; private set; }
         public ICommand RejectProjectCommand { get; private set; }
+        public ICommand ApproveProjectCommand { get; private set; }
+        public ICommand SetTechnicalOpinionCommand { get; private set; }
+        public ICommand AddPaymentCommand { get; set; }
+
+
+        private void ApproveProjectCommandImpl()
+        {
+            SafeRun(async () =>
+            {
+                await _controller.ApproveProject(User, Project);
+                CanEdit = Project.IsEditable;
+            });
+        }
+
+        private void AddPaymentCommandImpl()
+        {
+            SafeRun(async () =>
+            {
+                if (double.IsNaN(Payment.Amount))
+                {
+                    MessageBox.Show("Please insert a payment value");
+                    return;
+                }
+                await _controller.AddPayment(User, Project, Payment);
+                InitializeManagerFields();
+            });
+        }
 
         private void RejectProjectCommandImpl()
         {
@@ -184,6 +244,7 @@ namespace SGPF.ViewModel
             SafeRun(async () =>
             {
                 await _controller.Reject(User, Project);
+                CanEdit = Project.IsEditable;
             });
         }
         private void ResumeProjectCommandImpl()
@@ -231,6 +292,15 @@ namespace SGPF.ViewModel
             });
         }
 
+        private void SetTechnicalOpinionImpl()
+        {
+            SafeRun(async () =>
+            {
+                ThrowIfSuspended();
+                await _controller.AddTechnicalOpinion(User, Project, Project.TechnicalDispatch);
+            });
+        }
+
         private void ThrowIfSuspended()
         {
             if (Project.IsSuspended)
@@ -242,7 +312,7 @@ namespace SGPF.ViewModel
         private void CreateProjectCommandImpl(ProjectState initialState)
         {
 
-           
+
 
             SafeRun(async () =>
             {
@@ -260,13 +330,13 @@ namespace SGPF.ViewModel
                 else
                     await _controller.Archive(User, Project);
 
-                CanEdit = false;
+                CanEdit = Project.IsEditable;
 
             });
 
         }
 
-        
+
         private async void OnNewMessage(ProjectMessage obj)
         {
             User = obj.UserDetails;
@@ -280,12 +350,24 @@ namespace SGPF.ViewModel
                 await NewProject(obj.Project);
             }
 
-            if (User is FinantialCommitteeMember)
-                FillManagers();
+
 
             Project = obj.Project;
             CanEdit = Project.IsEditable;
 
+            if (User is FinantialCommitteeMember)
+                FillManagers();
+
+            if (User is FinancialManager)
+                InitializeManagerFields();
+        }
+
+        private void InitializeManagerFields()
+        {
+            if (Project.TechnicalDispatch == null)
+                Project.TechnicalDispatch = new ProjectTechnicalDispatch();
+
+            Payment = new ProjectPayment { PaymentDate = DateTime.Now, Amount = double.NaN };
 
         }
 

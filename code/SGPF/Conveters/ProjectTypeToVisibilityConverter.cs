@@ -10,7 +10,7 @@ using SGPF.Data;
 
 namespace SGPF.Conveters
 {
-    class LoadProjectToVisibilityConverter : IValueConverter
+    class LoanProjectToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

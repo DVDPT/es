@@ -10,6 +10,7 @@ namespace SGPF.Data
 {
     public enum TechnicalOpinion
     {
+        Undefined,
         Approve,
         Reject,
         ConvertToLoan
@@ -35,6 +36,78 @@ namespace SGPF.Data
         Completed
     }
 
+    public class ProjectTechnicalDispatch : ObservableObject
+    {
+
+
+        /// <summary>
+        /// The <see cref="Opinion" /> property's name.
+        /// </summary>
+        public const string OpinionPropertyName = "Opinion";
+
+        private TechnicalOpinion _opinion;
+
+        /// <summary>
+        /// Sets and gets the Opinion property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public TechnicalOpinion Opinion
+        {
+            get
+            {
+                return _opinion;
+            }
+
+            set
+            {
+                if (_opinion == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(OpinionPropertyName);
+                _opinion = value;
+                RaisePropertyChanged(OpinionPropertyName);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="Comment" /> property's name.
+        /// </summary>
+        public const string TextPropertyName = "Comment";
+
+        private string _comment = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the Comment property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string Comment
+        {
+            get
+            {
+                return _comment;
+            }
+
+            set
+            {
+                if (_comment == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TextPropertyName);
+                _comment = value;
+                RaisePropertyChanged(TextPropertyName);
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Dispatch Opinion:{0}, Comments: {1}", Opinion, Comment);
+        }
+    }
+
     public class Project : ObservableObject, IEquatable<Project>
     {
         public DateTime CreatedTime { get; set; }
@@ -55,7 +128,14 @@ namespace SGPF.Data
         }
 
         public const string IsEditablePropertyName = "IsSuspended";
-        public bool IsEditable { get { return State == ProjectState.AwaitingDispatch || State == ProjectState.Open; } }
+        public bool IsEditable
+        {
+            get
+            {
+                return State == ProjectState.AwaitingDispatch || State == ProjectState.Open ||
+                       State == ProjectState.Undefined;
+            }
+        }
 
         /// <summary>
         /// The <see cref="Id" /> property's name.
@@ -267,9 +347,7 @@ namespace SGPF.Data
                 _state = value;
 
 
-                if(IsEditable != canEdit)
-                    RaisePropertyChanged(IsEditablePropertyName)
-                        ;
+                RaisePropertyChanged(IsEditablePropertyName);
                 RaisePropertyChanged(StatePropertyName);
             }
         }
@@ -496,6 +574,37 @@ namespace SGPF.Data
                 RaisePropertyChanging(ManagerPropertyName);
                 _managerPerson = value;
                 RaisePropertyChanged(ManagerPropertyName);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="TechnicalDispatch" /> property's name.
+        /// </summary>
+        public const string TechnicalDispatchPropertyName = "TechnicalDispatch";
+
+        private ProjectTechnicalDispatch _dispatch;
+
+        /// <summary>
+        /// Sets and gets the TechnicalDispatch property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ProjectTechnicalDispatch TechnicalDispatch
+        {
+            get
+            {
+                return _dispatch;
+            }
+
+            set
+            {
+                if (_dispatch == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TechnicalDispatchPropertyName);
+                _dispatch = value;
+                RaisePropertyChanged(TechnicalDispatchPropertyName);
             }
         }
 

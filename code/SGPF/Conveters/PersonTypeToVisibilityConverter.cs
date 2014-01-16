@@ -19,7 +19,12 @@ namespace SGPF.Conveters
         {
             var t = (BasePerson)value;
 
-            return t.Type == TargetType ? Visibility.Visible : Visibility.Collapsed;
+            var cond = t.Type == TargetType;
+
+            if (parameter != null)
+                cond = !cond;
+
+            return cond ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
