@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\CompletedProjectException.cs" />
     <Compile Include="Exceptions\InvalidResumeOperationException.cs" />
     <Compile Include="Exceptions\InvalidStateException.cs" />
     <Compile Include="Exceptions\RejectedProjectException.cs" />

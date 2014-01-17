@@ -40,12 +40,12 @@ namespace SGPF.DataController
 
         public async Task Open(BasePerson person, Project project)
         {
-            SetState(person, project, ProjectState.Open);
+            SetState(person, project, ProjectState.AwaitingDispatch);
         }
 
         public async Task Update(BasePerson person, Project project)
         {
-            EnsurePreConditions(project);
+            EnsureEditPreConditions(project);
 
             if (project.IsEditable == false)
                 throw new UpdateProjectException();
@@ -63,7 +63,7 @@ namespace SGPF.DataController
 
         public async Task SendToDispatchQueue(BasePerson person, Data.Project project)
         {
-            EnsurePreConditions(project);
+            EnsureEditPreConditions(project);
 
 
             SetState(person, project, ProjectState.AwaitingDispatch);
@@ -71,7 +71,7 @@ namespace SGPF.DataController
 
         public async Task Archive(BasePerson person, Data.Project project)
         {
-            EnsurePreConditions(project);
+            EnsureEditPreConditions(project);
 
 
             SetState(person, project, ProjectState.Archived);
@@ -81,6 +81,9 @@ namespace SGPF.DataController
         {
             EnsurePreConditions(project);
 
+            if (project.State != ProjectState.Open)
+                throw new InvalidOperationException(String.Format("You have to wait until Commitee asks for your opinion."));
+           
             if (opinion == null || opinion.Opinion == TechnicalOpinion.Undefined)
                 throw new TecnicalDispatchException();
 
@@ -107,14 +110,26 @@ namespace SGPF.DataController
 
         }
 
-        private static void EnsurePreConditions(Project project)
+        private static void EnsureBoundariesPreConditions(Project project)
         {
-
             if (project.State == ProjectState.Rejected)
                 throw new RejectedProjectException(project);
 
+            if (project.State == ProjectState.Completed)
+                throw new CompletedProjectException(project);
+        }
+
+        private static void EnsurePreConditions(Project project) 
+        {
+            EnsureBoundariesPreConditions(project);
+
             if (project.IsSuspended)
                 throw new SuspendedProjectException(project);
+        }
+
+        private static void EnsureEditPreConditions(Project project)
+        {
+            EnsurePreConditions(project);
 
             if(project.IsEditable == false)
                 throw new UpdateProjectException();
@@ -124,13 +139,8 @@ namespace SGPF.DataController
         public async Task Suspend(BasePerson person, Data.Project project)
         {
 
-            if (project.State == ProjectState.Rejected)
-                throw new RejectedProjectException(project);
-
-            if (project.IsSuspended)
-                throw new SuspendedProjectException(project);
-
-
+            EnsurePreConditions(project);
+            
             if (person is Technician || person is FinancialManager || person is FinantialCommitteeMember)
             {
                 project.PrevSuspendedState = project.State;
@@ -141,7 +151,8 @@ namespace SGPF.DataController
 
         public async Task Resume(BasePerson person, Data.Project project)
         {
-            
+            EnsureBoundariesPreConditions(project);
+
             ///
             /// When a project is suspended it have to be resumed by the user that suspend it.
             ///
@@ -194,9 +205,16 @@ namespace SGPF.DataController
 
         public async Task AddPayment(BasePerson person, Project project, ProjectPayment payment)
         {
+            EnsurePreConditions(project);
+
             payment.ProjectId = project.Id;
             project.Payments.Add(payment);
             AddToHistory(person, project, _paymentMessageFormat, payment.PaymentDate, payment.Amount);
+
+            if (project.Payments.Sum(p => p.Amount) >= project.Amount) 
+            {
+                SetState(person, project, ProjectState.Completed);
+            }
         }
 
 
