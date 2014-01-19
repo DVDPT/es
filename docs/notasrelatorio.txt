@@ -1,8 +1,0 @@
-
-Projects
-	SGPF - Views, ViewModel, Converters e Commands
-	SGPF.Data - Entidades do modelo do sistema
-	SGPF.Database - DAL
-	SGPF.Database.InMemory - Implementação in memory da DAL
-	SGPF.DataController - Business de projectos e operações feitas por utilizadores
-	SGPF.Injector - ???

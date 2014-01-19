@@ -1,0 +1,103 @@
+﻿<Window x:Class="SGPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conveters="clr-namespace:SGPF.Conveters"
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        >
+
+    <Window.Resources>
+        <conveters:PersonTypeToVisibilityConverter x:Key="TechnicianToVisibilityConverter" TargetType="Technician"/>
+        <conveters:PersonTypeToVisibilityConverter x:Key="FinantialCommitteeToVisibilityConverter" TargetType="FinantialCommitteeMember"/>
+        <conveters:PersonTypeToVisibilityConverter x:Key="FinancialManagerToVisibilityConverter" TargetType="FinancialManager"/>
+        <conveters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Button 
+                Content="Logout" 
+                HorizontalAlignment="Left" 
+                Command="{Binding LogoutCommand}"
+                Visibility="{Binding CurrentSession, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Not}"
+                />
+            <Button 
+                Content="Login" 
+                Click="LoginClicked"
+                Visibility="{Binding CurrentSession, Converter={StaticResource NullToVisibilityConverter}}"
+                />
+        </Grid>
+        
+        <TabControl Grid.Row="1">
+            <TabItem Header="Technician" 
+                     Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource TechnicianToVisibilityConverter}}">
+                <StackPanel Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource TechnicianToVisibilityConverter}}">
+                    <Button
+                        Content="Add a Project"
+                        Click="OnNewProjectClicked"
+                    />
+                    
+                    <TextBlock Text="Project Id"/>
+                    <TextBox Text="{Binding ProjectId, Mode=TwoWay}"/>
+                    <Button Content="Open Project"
+                            Command="{Binding OpenProjectCommandById}"
+                            />
+                    
+                  
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Finantial Committee Member"
+                     Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource FinantialCommitteeToVisibilityConverter}}"
+                >
+                <StackPanel>
+
+                    <ListBox 
+                        ItemsSource="{Binding Projects}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnProjectSelected"
+                        >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding State}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding Representer.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Financial Manager"
+                     Visibility="{Binding CurrentSession.UserDetails, Converter={StaticResource FinancialManagerToVisibilityConverter}}"
+                     >
+                <StackPanel>
+
+                    <ListBox 
+                        ItemsSource="{Binding Projects}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnProjectSelected"
+                        >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding State}"/>
+                                    <TextBlock Margin="12 0 0 0" Text="{Binding Representer.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>
